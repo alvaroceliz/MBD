@@ -1,0 +1,411 @@
+---
+title: "Social Network Analysis"
+author: "Group 6, Section 2, MBD"
+date: "28 February 2020"
+output:
+  html_document:
+    theme: cosmo
+    toc: yes
+    toc_float: yes
+    toc_depth: 4
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=F, warning=F)
+```
+
+```{r}
+#load all packages 
+library(igraph)
+library(tidyverse)
+library(geomnet)
+library(knitr)
+library(leaflet)
+
+#load the data 
+london <- read.csv("/Users/michellemichalowski/Downloads/archive/london.csv")
+london_stations <- read.csv("/Users/michellemichalowski/Downloads/archive/london_stations.csv")
+```
+
+## The data set
+
++++DISCLAIMER: for the very computation heavy calculations we put a # so running the script won't take too long and crash your computer+++++
+
+The data set described in the following can be downloaded [here](https://www.kaggle.com/ajohrn/bikeshare-usage-in-london-and-taipei-network?select=taipei.csv)
+
+### Description
+The information in the data set collects information coming from bike sharing systems in London, UK. The minimum events recorded are: start station, end station, and the two corresponding times. 
+
+The Kaggle user that has shared the data set explains the following: Raw data files have been retrieved from the respective bike-sharing system operators, parsed and moderately reformatted (e.g. making column names uniform over all data), then saved into one CSV file per city, rows sorted by start date. Only raw data from 2017 and up until mid-2020 are included.
+
+The raw data sources are:
+
+https://cycling.data.tfl.gov.uk
+https://data.taipei/#/dataset?topic=topic-transportation
+
+Finally, we chose this data set because of its clear structure and the inclusion of all bike stations around London. Due to the big size of the data frame, we chose to only use one day in summer as reference. Obviously, that does not represent the overall network at all times but otherwise we wouldn't have been able to run an extensive analysis on this problem. 
+
+### Cleaning the data
+
+The data used here, already has high usability and therefore there is not much cleaning needed. The only thing we will do it to take out all rows which show missing observations for either the start or the end station. Furthermore, as already stated we only include one day which is the first of June in 2019. 
+
+```{r}
+london <- london %>% 
+              drop_na("end_station_id", "start_station_id") %>% 
+              filter(start_rental_date_time >= "2019-06-01",
+              start_rental_date_time < "2019-06-02")
+
+london_stations_info <- london_stations
+```
+
+### Where are the stations located?
+
+Next we are going to show where those stations are actually located, independently of their importance or centrality:
+```{r}
+map <- leaflet(london_stations_info) %>% addTiles() %>% 
+  setView(-0.118092, 51.509865, zoom = 12)  %>%
+  addCircles(lng = ~longitude, lat = ~latitude, weight = 4)
+map
+```
+
+
+
+```{r}
+#create data frame in correct order to use it with graph form data frame
+df <- london[,c(8,5, 1:4, 6:7, 9)]
+
+g <- graph_from_data_frame(df, directed = TRUE)
+
+```
+
+
+## Basic network analysis
+
+
+#### Vertices and edges 
+
+```{r}
+#number of vertices 
+V <- V(g)
+
+#number of edges 
+E <- E(g)
+
+```
+
+Calculation the number of vertices and edges we get a total of **778 vertices** and a total of **40269 edges**, which means our data set includes 778 bike station while documenting 40269 connections in between those. 
+
+#### Degree distribution
+
+For this specific case the degree can be split into in and out degree, taking both into consideration we would get the total number of degrees. We can observe that the distribution of our node's degrees is right skewed, meaning it is charachterised by the majority of nodes having a low degree, and only few of them have a high degree. In other words, there is a high concentration of low degree nodes and some nodes with a very high degree. Following, we can assume it is not a random netwrk and rather a "real" network.
+
+```{r}
+
+#calculate degree
+degree_both <-  degree(g, mode = "all")
+
+hist(degree_both, freq=TRUE, col = "lightblue", xlab = "Degree in total (both directions)", ylab = "Frequency")
+
+degree_in <-  degree(g, mode = "in")
+
+hist(degree_in, freq=TRUE, col = "lightblue",
+     xlab = "In degree", ylab = "Frequency")
+
+degree_out <-  degree(g, mode = "out")
+
+hist(degree_out, freq=TRUE, col = "lightblue",
+     xlab = "In degree", ylab = "Frequency")
+
+max_both <- max(degree_both)
+min_both <- min(degree_both)
+
+max_in <- max(degree_in)
+min_in <- min(degree_in)
+
+max_out <- max(degree_out)
+min_out <-  min(degree_out)
+```
+
+After having looking into the distribution, we also had a closer look at the metrics of those degrees. Main findings are displayed in the table below. It makes sense that the max_in and  and max_out in total is the max_both. 
+
+```{r, echo=FALSE, results='asis'}
+#create a table 
+
+metrics <- c(max_both, min_both, max_in, min_in, max_out, min_out)
+names(metrics) <- c("max_both", "min_both", "max_in", "min_in", "max_out", "min_out")
+metrics_data <- data.frame(metrics)
+kable(metrics_data)
+
+```
+
+#### Network diameter 
+```{r}
+diameter <- diameter(g, directed = TRUE)
+```
+The diameter of our graph measures the longest of all the calculated shortest paths in the network. In other words it measures the longest amount of 'jumps' between stations that can be made in the network. We calculated this value to be five, so for a user it would take to travel through five connecting paths  in order to cover the longest route between bike stations in London.
+
+#### Average path length
+```{r}
+average_path_length <- average.path.length(g, directed=TRUE)
+```
+For our data set we observe that the average path length between stations is 2.47. Meaning that if the users were to travel from one station to another, passing through other stations, they would have to go through almost 3 stations, on average.
+
+
+#### Degree
+Following the 10 stations with the highest degree:
+```{r}
+vector_degree <- as.data.frame(igraph::degree(g))
+station_id <- rownames(vector_degree)
+rownames(vector_degree) <- NULL
+vector_degree <- cbind(station_id,vector_degree)
+names(vector_degree)[names(vector_degree) == "igraph::degree(g)"] <- "degree_centrality"
+
+london_stations_info <- merge(vector_degree, london_stations, by = "station_id", all = TRUE)
+
+stations_highest_degree <- london_stations_info %>%
+                            arrange(desc(degree_centrality)) %>%
+                            select(station_id, station_name, degree_centrality) %>%
+                            top_n(10)
+
+kable(stations_highest_degree)
+
+map_degree_centrality <- leaflet(london_stations_info) %>% addTiles() %>% 
+  setView(-0.118092, 51.509865, zoom = 12)  %>%
+  addCircles(lng = ~longitude, lat = ~latitude, weight = (london_stations_info$degree_centrality/12))
+map_degree_centrality
+```
+In the table above, we can observe the comparison of the top 10 bike stations based on their centrality values. It can be clearly seen that the stations located at Hyde Park Corner, Black Lion Gate and Park Lane lead the ranking. It is very interesting to see that all three stations are adjacent to Hyde and Kensington Park.
+
+Hyde Park Corner bike station is located at one of the most touristic areas in London in close proximity to Buckingham Palace with great access to both Green Park and Hyde Park. The Station is also near Picadilly and it suggests that both tourists and locals might enjoy the famous ride through Constitution Hill to Buckingham Palace by bike. 
+
+Concerning the station located at Black Lion Gate, which is located at the opposite side of the rectangle composed of both Hyde Park and Kensington Garden, its high centrality degree might be explained because it lays right next to one of the busiest subway stations of London, Queensway, at Bayswater Road. Kensington Palace, an iconic landmark in the city, is also in close proximity. We can guess that this station has popularity among users as it offers the possibility to draw a 'landmark' bicycle route from this station to Buckingham Palace, passing by the beautiful parks of the city.
+
+In addition, Park Lane station, which also is located at the northeast limit of Hyde Park, might explain its high degree because of its proximity to Mayfair, another very touristic area of London. In this area, the iconic Saville Row is located. In conclusion, we can clearly observe that the stations with the highest degree are located in one of the most touristic areas of London, especially characterized by their Parks and moderate distance to landmarks.
+
+All in all, those stations with a very high degree (in & out) are those where bikes were most frequently picked up or returned.
+
+#### Betweeness
+Following the 10 stations with the highest betweeness:
+```{r}
+vector_betweeness <- as.data.frame(igraph::betweenness(g))
+station_id <- rownames(vector_betweeness)
+rownames(vector_betweeness) <- NULL
+vector_betweeness <- cbind(station_id,vector_betweeness)
+names(vector_betweeness)[names(vector_betweeness) == "igraph::betweenness(g)"] <- "betweeness_centrality"
+
+london_stations_info <- merge(vector_betweeness, london_stations, by = "station_id", all = TRUE)
+
+stations_highest_betweeness <- london_stations_info %>%
+                            arrange(desc(betweeness_centrality)) %>%
+                            select(station_id, station_name, betweeness_centrality) %>%
+                            top_n(10)
+
+kable(stations_highest_betweeness)
+
+map_degree_betweeness <- leaflet(london_stations_info) %>% addTiles() %>% 
+  setView(-0.118092, 51.509865, zoom = 12)  %>%
+  addCircles(lng = ~longitude, lat = ~latitude, weight = (london_stations_info$betweeness_centrality*10))
+map_degree_betweeness
+```
+The table above shows the top 10 stations measured by their betweenness centrality. It is interesting to see that many of these stations also rank among the top measured by degree centrality. For example, the stations located at Hyde Park Corner holding the first position and Black Lion Gate the third. Also, the station located at Regent’s Row indicates a high degree of betweenness ranking second. These three stations act as bridges that unite different clusters. 
+
+We can assume that Hyde Park Corner bike station serves as a main 'bridge' for the touristic Belgravia, Pimlico and Chelsea districts, while Black Lion Gate for those in the northwest touristic areas of Bayswater, the bohemian Notting Hill and others. Furthermore, the station with the second-highest degree is Regent’s Row, which bridges stations at both shores of the Regent's canal.
+
+#### Closeness
+Following the 10 stations with the highest closeness:
+```{r}
+vector_closeness <- as.data.frame(igraph::closeness(g))
+station_id <- rownames(vector_closeness)
+rownames(vector_closeness) <- NULL
+vector_closeness <- cbind(station_id,vector_closeness)
+names(vector_closeness)[names(vector_closeness) == "igraph::closeness(g)"] <- "closeness_centrality"
+
+london_stations_info <- merge(vector_closeness, london_stations, by = "station_id", all = TRUE)
+
+stations_highest_closeness <- london_stations_info %>%
+                            arrange(desc(closeness_centrality)) %>%
+                            select(station_id, station_name, closeness_centrality) %>%
+                            top_n(10)
+
+kable(stations_highest_closeness)
+map_degree_closeness <- leaflet(london_stations_info) %>% addTiles() %>% 
+  setView(-0.118092, 51.509865, zoom = 12)  %>%
+  addCircles(lng = ~longitude, lat = ~latitude, weight = (london_stations_info$closeness_centrality*50000))
+map_degree_closeness
+```
+
+
+A bike station is central if it can easily interact with all the other stations, meaning that the distance 𝑑(𝑖,𝑗) to all other stations is short.
+The result obtained when using this measure ranges between 0 and 1. Also for our Bike stations Dataset the distance computation needs to consider the directions of the edges since it is a directed graph.
+
+The closeness values indicates the accessibility of a bike station to any other bike station in London. For our graph, we observe that the top 10 values for closeness are quite small (0.0006494 ∼ 0.0006211), suggesting a bad inter-connectivity between bike stations. This makes sense since when deploying the bike stations you want them to be spread out so that as many as posible have access to them.
+
+
+#### Eigenvector
+Following the 10 stations with the highest closeness:
+```{r}
+vector_eigenvector <- as.data.frame(igraph::eigen_centrality(g)$vector)
+station_id <- rownames(vector_eigenvector)
+rownames(vector_eigenvector) <- NULL
+vector_eigenvector <- cbind(station_id,vector_eigenvector)
+names(vector_eigenvector)[names(vector_eigenvector) == "igraph::eigen_centrality(g)$vector"] <- "eigenvector_centrality"
+
+london_stations_info <- merge(vector_eigenvector, london_stations, by = "station_id", all = TRUE)
+stations_highest_eigenvector <- london_stations_info %>%
+                            arrange(desc(eigenvector_centrality)) %>%
+                            select(station_id, station_name, eigenvector_centrality) %>%
+                            top_n(10)
+
+kable(stations_highest_eigenvector)
+
+map_degree_eigenvector <- leaflet(london_stations_info) %>% addTiles() %>% 
+  setView(-0.118092, 51.509865, zoom = 12)  %>%
+  addCircles(lng = ~longitude, lat = ~latitude, weight = (london_stations_info$eigenvector_centrality*100))
+map_degree_eigenvector
+```
+As shown in the table above we can observe that the top 3 stations with the highest eigenvector centrality are the same who rank top when measuring by degree centrality. These stations are Hyde Park Corner, Black Lion Gate and Park Lane. Thus, a high eigenvector centrality score means that a bike station is connected to many other bike stations that have high scores. We can see that degree and eigenvector centralities are somehow correlated meaning that those stations which have the most bike routes coming in and out also connect to the ‘most important’ bike stations.
+
+
+## Advanced network analysis 
+
+### Hubs and paths 
+
+```{r}
+hs <- hub_score(g, weights=NA)$vector
+
+as <- authority_score(g, weights=NA)$vector
+
+stations_2 <- unique(london_stations$station_id) 
+stations_1 <-   unique(sort(london$start_station_id))
+uniques <- unique(stations_2[! stations_2 %in% stations_1])
+london_stations_info <- london_stations[-c(59, 112, 147, 224, 316, 358, 482, 502, 525, 659, 672, 725, 778, 788), ]
+
+
+london_stations_info$hub_score <- as.vector(hs)
+
+stations_highest_hub_score <- london_stations_info %>%
+                            arrange(desc(hub_score)) %>%
+                            select(station_id, station_name, hub_score) %>%
+                            top_n(10)
+
+london_stations_info$authority_score <- as.vector(as)
+
+stations_highest_authority_score <- london_stations_info %>%
+                            arrange(desc(authority_score)) %>%
+                            select(station_id, station_name, authority_score) %>%
+                            top_n(10)
+
+kable(stations_highest_authority_score)
+kable(stations_highest_hub_score)
+```
+Hubs and Authorities;
+This is a link analysis algorithm developed to rate web pages.
+A good hub can be defined as a page that points to many other pages. On the other hand, a good authority can be a page that was referenced by many different hubs.
+For our data set we can look at what stations tend to be the point of origin towards others while which stations are receiving the most bikers. For example,  68	Theobald’s Road, Holborn is the station with the highest authority score and highest hub score, followed by Cephas Street and Eel Brook Common. Holborn makes at the top of these metrics due to being in the center of London, next to Google CSG and McKinsey's Offices, the British museum, or the London School of Economics and Political Science. Generating a lot of traffic and receiving it. The Cephas street station on the other hand is at the center of the residential area in Stepney and in between 3 different Hospitals.
+
+### Erdös-Renyi model
+```{r}
+g_erdös <- erdos.renyi.game(nrow(london_stations_info), nrow(london), type = c("gnm"),  directed = TRUE, loops = TRUE)
+
+#compute the degree
+degree_g_erdös <-  degree(g_erdös, mode = "all")
+
+hist(degree_g_erdös, freq=TRUE, col = "lightblue", xlab = "Degree in total (both directions)", ylab = "Frequency")
+
+#compute the diameter
+diameter_g_erdös <- diameter(g_erdös, directed = TRUE)
+
+#compute average path length 
+path_length_g_erdös <- average.path.length(g_erdös, directed=TRUE)
+
+#global clustering coefficient 
+global_coefficient_g_erdös <- transitivity(g_erdös)
+
+#local clustering coefficient 
+local_coefficient_g_erdös <- transitivity(g_erdös, type = "local")
+```
+Erdös-Renyi's random graphs are based on G(n,p), where n is the number of nodes and p is the probability to connect to any pair of nodes. The different instances of G(n,p) appear with different frequencies creating a distribution of graphs.
+In the histogram we have created it can be observed a normal distribution where most of the cases tend to fall between 95 and 110 as Total Degree.
+
+
+
+
+### Community detection 
+```{r}
+?as.undirected
+g_undirected <- as.undirected(g, mode= "each")
+
+# finding communities with cluster edge betweeness
+#community <- cluster_edge_betweenness(g_undirected) 
+#membership(community)
+#modularity(community) 
+#plot_louvain <- plot(louvain, g_undirected,  vertex.label.cex=0.0001, vertex.size = 5)
+
+# finding communities with louvain
+#louvain <- cluster_louvain(g_undirected)
+#membership(louvain)
+#communities(louvain)
+
+# finding communities with infomap
+#infomap <- cluster_infomap(g_undirected)
+#membership(infomap)
+#communities(infomap)
+```
+Running the community algorithms, we assumed at the beginning that the communities will be based on the type of district in London. Nevertheless, it surprised us that such communities didn't have these communalities such as residential, financial, commercial and nightlife. 
+
+
+
+### Homophily
+
+Homophily: the tendency of nodes to connect to others who are similar on some variable.
+```{r}
+#degree homophily
+degree_centrality <- degree(g) #getting the degree centrality of the nodes
+g <- set_vertex_attr(g, 'degree', ,degree_centrality) #setting degree as a vertex attribute
+degree_homophily <- assortativity(g, V(g)$degree, directed = TRUE) #measuring the degree homophily
+degree_homophily
+
+#closeness homophily
+closeness_centrality <- closeness(g) #getting the closeness centrality of the nodes
+g <- set_vertex_attr(g, 'closeness', ,closeness_centrality) #setting closeness as a vertex attribute
+closeness_homophily <- assortativity(g, V(g)$closeness, directed = TRUE) #measuring the closeness homophily
+closeness_homophily
+
+#betweenness homophily
+betweenness_centrality <- betweenness(g, directed = TRUE)#getting the betweenness centrality of the nodes
+g <- set_vertex_attr(g, 'betweenness', ,betweenness_centrality)#setting betweenness as a vertex attribute
+betweenness_homophily <- assortativity(g, V(g)$betweenness, directed = TRUE) #measuring the betweenness homophily
+betweenness_homophily
+```
+
+We checked for homophilous tendencies of the graph by measuring the assortativity coefficient with 3 different variables as detailed below.
+
+1. Degree Homophily:
+Using the degree centrality of the nodes as a variable, we found the graph to have homophilous tendency with an assortativity coefficient of 0.385. This indicates that the nodes of the graph have some tendency of connecting with nodes that have a similar degree centrality.
+
+2. Closeness Homophily:
+Using the closeness centrality of the nodes as a variable, we found the graph to have homophilous tendency with an assortativity coefficient of 0.351. This indicates that the nodes of the graph also have some tendency of connecting with nodes that have a similar closeness centrality.
+
+3. Betweenness Homophily:
+Using the betweenness centrality of the nodes as a variable, we found the graph to have homophilous tendency with an assortativity coefficient of 0.0.257. This indicates that the nodes of the graph also have some tendency of connecting with nodes that have a similar closeness centrality.
+
+However, the assortativity coefficient is highest for the degree-centrality, followed by closeness centrality and finally betweenness centrality.
+
+It can thereby be interpreted that users of the bike-share service are likely to travel the most between stations that are highly connected to other stations, followed by stations that are closer to other stations and finally between stations that connect other stations.
+
++++++++++++++++++
+
+*Disclaimer*:
+
+The license page for London is https://tfl.gov.uk/corporate/terms-and-conditions/transport-data-service . Part of that page states:
+
+You are free to: Copy, publish, distribute and transmit the Information; Adapt the Information and; Exploit the Information commercially and non-commercially for example, by combining it with other Information, or by including it in Your own product or application.
+
+I acknowledge Transport for London as the source of the data content and this effort is therefore Powered by TfL Open Data.
+
+The license page for Taipei is https://data.taipei/#/rule. 
+The license is as permissive as the one for London.
