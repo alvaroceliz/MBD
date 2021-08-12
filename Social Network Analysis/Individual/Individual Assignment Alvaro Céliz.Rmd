@@ -1,0 +1,140 @@
+---
+title: "Assignment"
+output: html_notebook
+---
+
+library(igraph)
+library(dplyr)
+
+On this first assignment, applying the basic functions of the Igraph package is required. The following datasets are going to be used:
+
+* Actors dataset - undirected graph - : For the 2005 Graph Drawing conference a data set was provided of the IMDB movie database. We will use a reduced version of this dataset, which derived all actor-actor collaboration edges where the actors co-starred in at least 2 movies together between 1995 and 2004. 
+
+
+You have to complete the code chunks in this document but also analyze the results, extract insights and answer the short questions. Fill the CSV attached with your answers, sometimes just the number is enough, some others just a small sentence. Remember to change the header with your email.
+
+In your submission please upload both the R Markdown and the CSV with the solutions.
+
+
+# Loading data
+
+In this section, the goal is loading the datasets given, building the graph and analyzing basics metrics. Include the edge or node attributes you consider.
+
+folder_path <- "/UNIVERSIDAD/Master/2. 2nd Semester/8. Social Network Analysis/Practice/Individual/"
+dat_1 <- read.table(file.path(folder_path, "imdb_actors_key.tsv"), sep = "\t", header=T)
+dat_2 <- read.table(file.path(folder_path, "imdb_actor_edges.tsv"), sep = "\t", header=T)
+g <- graph_from_data_frame(d = dat_2, directed = F, vertices = dat_1)
+
+
+Describe the values provided by summary function on the graph object.
+*1) How many nodes are there?*
+*2) How many edges are there?*
+
+
+```{r}
+gorder(g)
+gsize(g)
+```
+
+
+# Degree distribution
+
+
+Analyse the degree distribution. Compute the total degree distribution.
+*3) How does this distributions look like?*
+*4) What is the maximum degree?*
+*5) What is the minum degree?*
+```{r}
+hist(degree(g), main = "Distribution of degree")
+max(degree(g))
+min(degree(g))
+```
+
+
+
+
+
+# Network Diameter and Average Path Length
+*6) What is the diameter of the graph?*
+*7) What is the avg path length of the graph?*
+```{r}
+diameter(g, directed = F)
+mean_distance(g, directed = F)
+```
+
+
+# Node importance: Centrality measures
+
+Obtain the distribution of the number of movies made by an actor and the number of genres in which an actor starred in. It may be useful to analyze and discuss the results to be obtained in the following exercises.
+
+```{r}
+df_genres <- dat_1
+length_function <- function(x){
+  length(unlist(strsplit(x,",")))
+}
+df_genres$length_genre <- apply(df_genres[,5, drop=F], 1, length_function)
+df_genres <- df_genres %>% select(id, name, movies_95_04, main_genre, length_genre)
+#Distribution of movies per actor
+hist(df_genres$movies_95_04, breaks = c(10:100, seq(105, 605, 100)), main = "Number of movies per actor")
+#Distribution of different genres per actor
+hist(df_genres$length_genre, main = "Number of different genres per actor")
+```
+
+Obtain three vectors with the degree, betweeness and closeness for each vertex of the actors' graph.
+
+```{r}
+dg <- as.vector(igraph::degree(g))
+bt <- as.vector(igraph::betweenness(g))
+cl <- as.vector(igraph::closeness(g))
+```
+
+
+Obtain the list of the 20 actors with the largest degree centrality. It can be useful to show a list with the degree, the name of the actor, the number of movies, the main genre, and the number of genres in which the actor has participated.
+
+*8) Who is the actor with highest degree centrality?*
+*9) How do you explain the high degree of the top-20 list??*
+```{r}
+df_genres$degree_cent <- as.vector(igraph::degree(g))
+highest_degree <- df_genres %>% arrange(desc(degree_cent)) %>% top_n(1)
+top20_degree <- df_genres %>% arrange(desc(degree_cent)) %>% top_n(20) 
+```
+
+
+
+
+Obtain the list of the 20 actors with the largest betweenness centrality. Show a list with the betweenness, the name of the actor, the number of movies, the main genre, and the number of genres in which the actor has participated.
+*10) Who is the actor with highest betweenes?*
+*11) How do you explain the high betweenness of the top-20 list?*
+```{r}
+df_genres$betweenes <- as.vector(igraph::betweenness(g))
+highest_betweenes <- df_genres %>% arrange(desc(betweenes)) %>% top_n(1)
+top20_betweenes <- df_genres %>% arrange(desc(betweenes)) %>% top_n(20)
+```
+
+
+
+
+
+Obtain the list of the 20 actors with the largest closeness centrality. Show a list with the closeness the name of the actor, the number of movies, the main genre, and the number of genres in which the actor has participated.
+
+*12) Who is the actor with highest closeness centrality?*
+*13) How do you explain the high closeness of the top-20 list? *
+```{r}
+df_genres$closeness <- as.vector(igraph::closeness(g))
+highest_closeness <- df_genres %>% arrange(desc(closeness)) %>% top_n(1)
+top20_closeness <- df_genres %>% arrange(desc(closeness)) %>% top_n(20)
+```
+
+
+
+# Network Models (Optional)
+Explore the Erdös-Renyi model and compare its structural properties to those of real-world networks (actors):
+
+* Degree distribution  P(k)
+* Network Diameter and Average Path Length
+* (Global and Local) Clustering Coefficient
+
+
+# Comunity detection (Optional)
+Use any community detection algorithm for the actors' network and discuss whether the communities found make sense according to the vertex labels.
+
