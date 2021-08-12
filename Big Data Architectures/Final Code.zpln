@@ -1,0 +1,1894 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "-- #0. Show the databases\nshow databases",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T11:38:39+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "database_name": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "database_name\n2020s1_alvaro\ndefault\nmovielens\nrecommender\ntwitter\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606150415602_390094301",
+      "id": "paragraph_1606150415602_390094301",
+      "dateCreated": "2020-11-23T17:53:35+0100",
+      "dateStarted": "2020-12-02T21:32:10+0100",
+      "dateFinished": "2020-12-02T21:32:11+0100",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:184"
+    },
+    {
+      "text": "-- #1. Create the database\n-- #2. Select the database\ncreate database 2020s1_Alvaro;\nuse 2020s1_Alvaro",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T11:39:36+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606150431094_160217908",
+      "id": "paragraph_1606150431094_160217908",
+      "dateCreated": "2020-11-23T17:53:51+0100",
+      "dateStarted": "2020-12-02T21:31:47+0100",
+      "dateFinished": "2020-12-02T21:31:53+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:185"
+    },
+    {
+      "text": "-- #3. Create an external table called sentiment_dictionary\r\ndrop table if exists sentiment_dictionary;\r\ncreate external table sentiment_dictionary(\r\ntype string,\r\nlength integer,\r\nword string,\r\nword_typ string,\r\nstemmed string,\r\npolarity string\r\n)\r\nrow format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'\r\nwith serdeproperties (\r\n    \"separatorChar\" = \"\\t\"\r\n)\r\nstored as textfile\r\nlocation '/user/osbdet/datalake/raw/covid19';\r\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-17T18:05:44+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606152790952_173943874",
+      "id": "paragraph_1606152790952_173943874",
+      "dateCreated": "2020-11-23T18:33:10+0100",
+      "dateStarted": "2020-12-17T18:05:44+0100",
+      "dateFinished": "2020-12-17T18:05:44+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:186"
+    },
+    {
+      "text": "-- #3.1. Test if it works the table\nselect * from sentiment_dictionary limit 2",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T11:51:52+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "type": "string",
+                      "length": "string",
+                      "word": "string",
+                      "word_typ": "string",
+                      "stemmed": "string",
+                      "polarity": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "type\tlength\tword\tword_typ\tstemmed\tpolarity\nweaksubj\t1\tabandoned\tadj\tn\tnegative\nweaksubj\t1\tabandonment\tnoun\tn\tnegative\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606941239589_1769040174",
+      "id": "paragraph_1606941239589_1769040174",
+      "dateCreated": "2020-12-02T21:33:59+0100",
+      "dateStarted": "2020-12-02T21:39:58+0100",
+      "dateFinished": "2020-12-02T21:39:58+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:187"
+    },
+    {
+      "text": "-- #4. Create an external table called tweets_json\r\ndrop table if exists tweets_json;\r\ncreate external table tweets_json (\r\ncreated_at string,\r\nid bigint,\r\nid_str string,\r\ntext string,\r\nsource string,\r\ntruncated boolean,\r\nin_reply_to_status_id bigint,\r\nin_reply_to_status_id_str string,\r\nin_reply_to_user_id bigint,\r\nin_reply_to_user_id_str string,\r\nin_reply_to_screen_name string,\r\n`user` struct<id:bigint,\r\n              id_str:string,\r\n              name:string,\r\n              screen_name:string,\r\n              location:string,\r\n              url:string,\r\n              description:string,\r\n              protected:boolean,\r\n              verified:boolean,\r\n              followers_count:int,\r\n              friends_count:int,\r\n              listed_count:int,\r\n              favourites_count:int,\r\n              statuses_count:int,\r\n              utc_offset:int,\r\n              time_zone:string,\r\n              geo_enabled:boolean,\r\n              lang:string>,\r\n`entities` struct<user_mentions:array<struct<screen_name:string>>,\r\n                  hashtags:array<struct<text:string>>, \r\n                  media:array<struct<expanded_utl:string>>, \r\n                  urls:array<struct<expanded_url:string>>, \r\n                  symbols:array<struct<text:string>>>,               \r\ncoordinates struct <coordinates:array<float>>,\r\nplace struct<country:string,\r\n             country_code:string,\r\n             full_name:string,\r\n             place_type:string,\r\n             url:string>,\r\nquoted_status_id bigint,\r\nquoted_status_id_str string,\r\nis_quote_status boolean,\r\nquote_count int,\r\nreply_count int,\r\nretweet_count int,\r\nfavorite_count int,\r\nfavorited boolean,\r\nretweeted boolean,\r\npossibly_sensitive boolean,\r\nfilter_level string,\r\nlang string\r\n)\r\nrow format serde 'org.apache.hive.hcatalog.data.JsonSerDe'\r\nstored as textfile\r\nlocation '/user/osbdet/datalake/raw/twitter/covid19/';",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T11:57:25+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606644751485_1860259644",
+      "id": "paragraph_1606644751485_1860259644",
+      "dateCreated": "2020-11-29T11:12:31+0100",
+      "dateStarted": "2020-12-06T11:57:25+0100",
+      "dateFinished": "2020-12-06T11:57:26+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:188"
+    },
+    {
+      "text": "-- #4.1. Test if it works the table\nselect * from tweets_json limit 5;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T11:57:30+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "created_at": "string",
+                      "id": "string",
+                      "id_str": "string",
+                      "text": "string",
+                      "source": "string",
+                      "truncated": "string",
+                      "in_reply_to_status_id": "string",
+                      "in_reply_to_status_id_str": "string",
+                      "in_reply_to_user_id": "string",
+                      "in_reply_to_user_id_str": "string",
+                      "in_reply_to_screen_name": "string",
+                      "user": "string",
+                      "entities": "string",
+                      "coordinates": "string",
+                      "place": "string",
+                      "quoted_status_id": "string",
+                      "quoted_status_id_str": "string",
+                      "is_quote_status": "string",
+                      "quote_count": "string",
+                      "reply_count": "string",
+                      "retweet_count": "string",
+                      "favorite_count": "string",
+                      "favorited": "string",
+                      "retweeted": "string",
+                      "possibly_sensitive": "string",
+                      "filter_level": "string",
+                      "lang": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "created_at\tid\tid_str\ttext\tsource\ttruncated\tin_reply_to_status_id\tin_reply_to_status_id_str\tin_reply_to_user_id\tin_reply_to_user_id_str\tin_reply_to_screen_name\tuser\tentities\tcoordinates\tplace\tquoted_status_id\tquoted_status_id_str\tis_quote_status\tquote_count\treply_count\tretweet_count\tfavorite_count\tfavorited\tretweeted\tpossibly_sensitive\tfilter_level\tlang\nTue Nov 24 17:19:56 +0000 2020\t1331286441016647680\t1331286441016647680\tRT @kazweida: Don’t look away. It didn’t have to be like this. https://t.co/fNbkjA3CCu\t<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":357704829,\"id_str\":\"357704829\",\"name\":\"Dairy Queen\",\"screen_name\":\"SusanSoorenko\",\"location\":\"Silver Spring, MD\",\"url\":null,\"description\":\"Ice Cream Mystic, looking for angels. She/her.\",\"protected\":false,\"verified\":false,\"followers_count\":572,\"friends_count\":1644,\"listed_count\":0,\"favourites_count\":97110,\"statuses_count\":54699,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":false,\"lang\":null}\t{\"user_mentions\":[{\"screen_name\":\"kazweida\"}],\"hashtags\":[],\"media\":null,\"urls\":[{\"expanded_url\":\"https://twitter.com/drericding/status/1331207442844311553\"}],\"symbols\":[]}\tnull\tnull\t1331207442844311553\t1331207442844311553\ttrue\t0\t0\t0\t0\tfalse\tfalse\tfalse\tlow\ten\nTue Nov 24 17:19:56 +0000 2020\t1331286441624817666\t1331286441624817666\tRT @sanidadgob: 📹@salvadorilla ha anunciado que residentes, personal sanitario y sociosanitario en residencias de personas mayores y con di…\t<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":453248281,\"id_str\":\"453248281\",\"name\":\"✨Ainara 💢✨\",\"screen_name\":\"Ainaraleka\",\"location\":\"Cantabria, España\",\"url\":null,\"description\":\"No soy nadie en especial, simplemente una entre tantas personas que busca encontrar la verdad.\",\"protected\":false,\"verified\":false,\"followers_count\":580,\"friends_count\":489,\"listed_count\":5,\"favourites_count\":32074,\"statuses_count\":17882,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":true,\"lang\":null}\t{\"user_mentions\":[{\"screen_name\":\"sanidadgob\"},{\"screen_name\":\"salvadorilla\"}],\"hashtags\":[],\"media\":null,\"urls\":[],\"symbols\":[]}\tnull\tnull\tnull\tnull\tfalse\t0\t0\t0\t0\tfalse\tfalse\tnull\tlow\tes\nTue Nov 24 17:19:56 +0000 2020\t1331286441872134144\t1331286441872134144\tHaryana Announces New Curbs On Social Gatherings Amid #COVID19 Surge https://t.co/bGUEF7YA1T https://t.co/B1tDuDGWeJ\t<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":37034483,\"id_str\":\"37034483\",\"name\":\"NDTV\",\"screen_name\":\"ndtv\",\"location\":\"India\",\"url\":\"http://www.ndtv.com/\",\"description\":\"Breaking news alerts from India.\\n\\nInstagram: http://www.instagram.com/ndtv\\nYouTube: http://www.youtube.com/ndtv\",\"protected\":false,\"verified\":true,\"followers_count\":13995361,\"friends_count\":15,\"listed_count\":12716,\"favourites_count\":0,\"statuses_count\":765042,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":true,\"lang\":null}\t{\"user_mentions\":[],\"hashtags\":[{\"text\":\"COVID19\"}],\"media\":[{\"expanded_utl\":null}],\"urls\":[{\"expanded_url\":\"https://www.ndtv.com/india-news/haryana-announces-new-curbs-on-social-gatherings-amid-covid-19-surge-2329715\"}],\"symbols\":[]}\tnull\tnull\tnull\tnull\tfalse\t0\t0\t0\t0\tfalse\tfalse\tfalse\tlow\ten\nTue Nov 24 17:19:56 +0000 2020\t1331286442702753798\t1331286442702753798\tRT @KAYIHANPALA: #COVID19 pandemisi sırasındaki can kayıpları #grip (Influenza) hastalığı ile karşılaştırılıyor. TÜİK'e göre 2019'da ülkemi…\t<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":2414515653,\"id_str\":\"2414515653\",\"name\":\"Esma Işık\",\"screen_name\":\"isigoes\",\"location\":null,\"url\":null,\"description\":null,\"protected\":false,\"verified\":false,\"followers_count\":213,\"friends_count\":1033,\"listed_count\":1,\"favourites_count\":14418,\"statuses_count\":24845,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":true,\"lang\":null}\t{\"user_mentions\":[{\"screen_name\":\"KAYIHANPALA\"}],\"hashtags\":[{\"text\":\"COVID19\"},{\"text\":\"grip\"}],\"media\":null,\"urls\":[],\"symbols\":[]}\tnull\tnull\tnull\tnull\tfalse\t0\t0\t0\t0\tfalse\tfalse\tnull\tlow\ttr\nTue Nov 24 17:19:57 +0000 2020\t1331286444011184131\t1331286444011184131\tLets go\t<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":1280661826485641217,\"id_str\":\"1280661826485641217\",\"name\":\"patriquin1$\",\"screen_name\":\"BrandonPatriqu1\",\"location\":\"Grande Prairie County No. 1, A\",\"url\":null,\"description\":null,\"protected\":false,\"verified\":false,\"followers_count\":40,\"friends_count\":37,\"listed_count\":0,\"favourites_count\":1165,\"statuses_count\":501,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":false,\"lang\":null}\t{\"user_mentions\":[],\"hashtags\":[],\"media\":null,\"urls\":[],\"symbols\":[]}\tnull\tnull\t1331277962767982599\t1331277962767982599\ttrue\t0\t0\t0\t0\tfalse\tfalse\tnull\tlow\ten\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606644974262_1645058058",
+      "id": "paragraph_1606644974262_1645058058",
+      "dateCreated": "2020-11-29T11:16:14+0100",
+      "dateStarted": "2020-12-06T11:57:30+0100",
+      "dateFinished": "2020-12-06T11:57:33+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:189"
+    },
+    {
+      "text": "-- #5. Total number of tweets and time\nselect count(id) as number_of_tweets from tweets_json;\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T12:48:57+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "number_of_tweets": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201206124820_ada30653-c42a-40bf-b56f-3f9a756e03ab): select count(id) as number_of_tweets from tweets_json\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:number_of_tweets, type:bigint, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201206124820_ada30653-c42a-40bf-b56f-3f9a756e03ab); Time taken: 0.134 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201206124820_ada30653-c42a-40bf-b56f-3f9a756e03ab): select count(id) as number_of_tweets from tweets_json\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201206124820_ada30653-c42a-40bf-b56f-3f9a756e03ab\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0012\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0012/\nINFO  : Starting Job = job_1607250954367_0012, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0012/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0012\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-06 12:48:39,540 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-06 12:48:48,822 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 6.39 sec\nINFO  : 2020-12-06 12:48:55,025 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 8.58 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "number_of_tweets\n11707\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0012/",
+              "$$hashKey": "object:1239"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607252097090_1657143636",
+      "id": "paragraph_1607252097090_1657143636",
+      "dateCreated": "2020-12-06T11:54:57+0100",
+      "dateStarted": "2020-12-06T12:48:20+0100",
+      "dateFinished": "2020-12-06T12:48:57+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:190"
+    },
+    {
+      "text": "-- #6. Create a managed table called tweets_parquet\ndrop table if exists tweets_parquet;\ncreate table tweets_parquet\nstored as parquet as select * from tweets_json;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T11:59:59+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1INFO  : Compiling command(queryId=osbdet_20201206115959_893d3d1f-66e9-456c-a867-ab2ce362df60): create table tweets_parquet\nstored as parquet as select * from tweets_json\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:tweets_json.created_at, type:string, comment:null), FieldSchema(name:tweets_json.id, type:bigint, comment:null), FieldSchema(name:tweets_json.id_str, type:string, comment:null), FieldSchema(name:tweets_json.text, type:string, comment:null), FieldSchema(name:tweets_json.source, type:string, comment:null), FieldSchema(name:tweets_json.truncated, type:boolean, comment:null), FieldSchema(name:tweets_json.in_reply_to_status_id, type:bigint, comment:null), FieldSchema(name:tweets_json.in_reply_to_status_id_str, type:string, comment:null), FieldSchema(name:tweets_json.in_reply_to_user_id, type:bigint, comment:null), FieldSchema(name:tweets_json.in_reply_to_user_id_str, type:string, comment:null), FieldSchema(name:tweets_json.in_reply_to_screen_name, type:string, comment:null), FieldSchema(name:tweets_json.user, type:struct<id:bigint,id_str:string,name:string,screen_name:string,location:string,url:string,description:string,protected:boolean,verified:boolean,followers_count:int,friends_count:int,listed_count:int,favourites_count:int,statuses_count:int,utc_offset:int,time_zone:string,geo_enabled:boolean,lang:string>, comment:null), FieldSchema(name:tweets_json.entities, type:struct<user_mentions:array<struct<screen_name:string>>,hashtags:array<struct<text:string>>,media:array<struct<expanded_utl:string>>,urls:array<struct<expanded_url:string>>,symbols:array<struct<text:string>>>, comment:null), FieldSchema(name:tweets_json.coordinates, type:struct<coordinates:array<float>>, comment:null), FieldSchema(name:tweets_json.place, type:struct<country:string,country_code:string,full_name:string,place_type:string,url:string>, comment:null), FieldSchema(name:tweets_json.quoted_status_id, type:bigint, comment:null), FieldSchema(name:tweets_json.quoted_status_id_str, type:string, comment:null), FieldSchema(name:tweets_json.is_quote_status, type:boolean, comment:null), FieldSchema(name:tweets_json.quote_count, type:int, comment:null), FieldSchema(name:tweets_json.reply_count, type:int, comment:null), FieldSchema(name:tweets_json.retweet_count, type:int, comment:null), FieldSchema(name:tweets_json.favorite_count, type:int, comment:null), FieldSchema(name:tweets_json.favorited, type:boolean, comment:null), FieldSchema(name:tweets_json.retweeted, type:boolean, comment:null), FieldSchema(name:tweets_json.possibly_sensitive, type:boolean, comment:null), FieldSchema(name:tweets_json.filter_level, type:string, comment:null), FieldSchema(name:tweets_json.lang, type:string, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201206115959_893d3d1f-66e9-456c-a867-ab2ce362df60); Time taken: 0.195 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201206115959_893d3d1f-66e9-456c-a867-ab2ce362df60): create table tweets_parquet\nstored as parquet as select * from tweets_json\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201206115959_893d3d1f-66e9-456c-a867-ab2ce362df60\nINFO  : Total jobs = 3\nINFO  : Launching Job 1 out of 3\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks is set to 0 since there's no reduce operator\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0002\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0002/\nINFO  : Starting Job = job_1607250954367_0002, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0002/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0002\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0\nINFO  : 2020-12-06 12:00:21,262 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-06 12:00:31,582 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 8.76 sec\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1INFO  : MapReduce Total cumulative CPU time: 8 seconds 760 msec\nINFO  : Ended Job = job_1607250954367_0002\nINFO  : Starting task [Stage-7:CONDITIONAL] in serial mode\nINFO  : Stage-4 is selected by condition resolver.\nINFO  : Stage-3 is filtered out by condition resolver.\nINFO  : Stage-5 is filtered out by condition resolver.\nINFO  : Starting task [Stage-4:MOVE] in serial mode\nINFO  : Moving data to directory hdfs://0.0.0.0:9000/user/hive/warehouse/.hive-staging_hive_2020-12-06_11-59-59_339_3452515302681420618-1/-ext-10002 from hdfs://0.0.0.0:9000/user/hive/warehouse/.hive-staging_hive_2020-12-06_11-59-59_339_3452515302681420618-1/-ext-10004\nINFO  : Starting task [Stage-0:MOVE] in serial mode\nINFO  : Moving data to directory hdfs://0.0.0.0:9000/user/hive/warehouse/tweets_parquet from hdfs://0.0.0.0:9000/user/hive/warehouse/.hive-staging_hive_2020-12-06_11-59-59_339_3452515302681420618-1/-ext-10002\nINFO  : Starting task [Stage-8:DDL] in serial mode\nINFO  : Starting task [Stage-2:STATS] in serial mode\nINFO  : MapReduce Jobs Launched: \nINFO  : Stage-Stage-1: Map: 1   Cumulative CPU: 8.76 sec   HDFS Read: 89243699 HDFS Write: 3980117 SUCCESS\nINFO  : Total MapReduce CPU Time Spent: 8 seconds 760 msec\nINFO  : Completed executing command(queryId=osbdet_20201206115959_893d3d1f-66e9-456c-a867-ab2ce362df60); Time taken: 33.729 seconds\nINFO  : OK\nINFO  : Concurrency mode is disabled, not creating a lock manager\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0002/",
+              "$$hashKey": "object:1285"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606645082645_1465870336",
+      "id": "paragraph_1606645082645_1465870336",
+      "dateCreated": "2020-11-29T11:18:02+0100",
+      "dateStarted": "2020-12-06T11:59:59+0100",
+      "dateFinished": "2020-12-06T12:00:33+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:191"
+    },
+    {
+      "text": "-- #6.1. Test if it works the table\nselect * from tweets_parquet limit 5;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T12:01:13+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "created_at": "string",
+                      "id": "string",
+                      "id_str": "string",
+                      "text": "string",
+                      "source": "string",
+                      "truncated": "string",
+                      "in_reply_to_status_id": "string",
+                      "in_reply_to_status_id_str": "string",
+                      "in_reply_to_user_id": "string",
+                      "in_reply_to_user_id_str": "string",
+                      "in_reply_to_screen_name": "string",
+                      "user": "string",
+                      "entities": "string",
+                      "coordinates": "string",
+                      "place": "string",
+                      "quoted_status_id": "string",
+                      "quoted_status_id_str": "string",
+                      "is_quote_status": "string",
+                      "quote_count": "string",
+                      "reply_count": "string",
+                      "retweet_count": "string",
+                      "favorite_count": "string",
+                      "favorited": "string",
+                      "retweeted": "string",
+                      "possibly_sensitive": "string",
+                      "filter_level": "string",
+                      "lang": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "created_at\tid\tid_str\ttext\tsource\ttruncated\tin_reply_to_status_id\tin_reply_to_status_id_str\tin_reply_to_user_id\tin_reply_to_user_id_str\tin_reply_to_screen_name\tuser\tentities\tcoordinates\tplace\tquoted_status_id\tquoted_status_id_str\tis_quote_status\tquote_count\treply_count\tretweet_count\tfavorite_count\tfavorited\tretweeted\tpossibly_sensitive\tfilter_level\tlang\nTue Nov 24 17:19:56 +0000 2020\t1331286441016647680\t1331286441016647680\tRT @kazweida: Don’t look away. It didn’t have to be like this. https://t.co/fNbkjA3CCu\t<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":357704829,\"id_str\":\"357704829\",\"name\":\"Dairy Queen\",\"screen_name\":\"SusanSoorenko\",\"location\":\"Silver Spring, MD\",\"url\":null,\"description\":\"Ice Cream Mystic, looking for angels. She/her.\",\"protected\":false,\"verified\":false,\"followers_count\":572,\"friends_count\":1644,\"listed_count\":0,\"favourites_count\":97110,\"statuses_count\":54699,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":false,\"lang\":null}\t{\"user_mentions\":[{\"screen_name\":\"kazweida\"}],\"hashtags\":[],\"media\":null,\"urls\":[{\"expanded_url\":\"https://twitter.com/drericding/status/1331207442844311553\"}],\"symbols\":[]}\tnull\tnull\t1331207442844311553\t1331207442844311553\ttrue\t0\t0\t0\t0\tfalse\tfalse\tfalse\tlow\ten\nTue Nov 24 17:19:56 +0000 2020\t1331286441624817666\t1331286441624817666\tRT @sanidadgob: 📹@salvadorilla ha anunciado que residentes, personal sanitario y sociosanitario en residencias de personas mayores y con di…\t<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":453248281,\"id_str\":\"453248281\",\"name\":\"✨Ainara 💢✨\",\"screen_name\":\"Ainaraleka\",\"location\":\"Cantabria, España\",\"url\":null,\"description\":\"No soy nadie en especial, simplemente una entre tantas personas que busca encontrar la verdad.\",\"protected\":false,\"verified\":false,\"followers_count\":580,\"friends_count\":489,\"listed_count\":5,\"favourites_count\":32074,\"statuses_count\":17882,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":true,\"lang\":null}\t{\"user_mentions\":[{\"screen_name\":\"sanidadgob\"},{\"screen_name\":\"salvadorilla\"}],\"hashtags\":[],\"media\":null,\"urls\":[],\"symbols\":[]}\tnull\tnull\tnull\tnull\tfalse\t0\t0\t0\t0\tfalse\tfalse\tnull\tlow\tes\nTue Nov 24 17:19:56 +0000 2020\t1331286441872134144\t1331286441872134144\tHaryana Announces New Curbs On Social Gatherings Amid #COVID19 Surge https://t.co/bGUEF7YA1T https://t.co/B1tDuDGWeJ\t<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":37034483,\"id_str\":\"37034483\",\"name\":\"NDTV\",\"screen_name\":\"ndtv\",\"location\":\"India\",\"url\":\"http://www.ndtv.com/\",\"description\":\"Breaking news alerts from India.\\n\\nInstagram: http://www.instagram.com/ndtv\\nYouTube: http://www.youtube.com/ndtv\",\"protected\":false,\"verified\":true,\"followers_count\":13995361,\"friends_count\":15,\"listed_count\":12716,\"favourites_count\":0,\"statuses_count\":765042,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":true,\"lang\":null}\t{\"user_mentions\":[],\"hashtags\":[{\"text\":\"COVID19\"}],\"media\":[{\"expanded_utl\":null}],\"urls\":[{\"expanded_url\":\"https://www.ndtv.com/india-news/haryana-announces-new-curbs-on-social-gatherings-amid-covid-19-surge-2329715\"}],\"symbols\":[]}\tnull\tnull\tnull\tnull\tfalse\t0\t0\t0\t0\tfalse\tfalse\tfalse\tlow\ten\nTue Nov 24 17:19:56 +0000 2020\t1331286442702753798\t1331286442702753798\tRT @KAYIHANPALA: #COVID19 pandemisi sırasındaki can kayıpları #grip (Influenza) hastalığı ile karşılaştırılıyor. TÜİK'e göre 2019'da ülkemi…\t<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":2414515653,\"id_str\":\"2414515653\",\"name\":\"Esma Işık\",\"screen_name\":\"isigoes\",\"location\":null,\"url\":null,\"description\":null,\"protected\":false,\"verified\":false,\"followers_count\":213,\"friends_count\":1033,\"listed_count\":1,\"favourites_count\":14418,\"statuses_count\":24845,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":true,\"lang\":null}\t{\"user_mentions\":[{\"screen_name\":\"KAYIHANPALA\"}],\"hashtags\":[{\"text\":\"COVID19\"},{\"text\":\"grip\"}],\"media\":null,\"urls\":[],\"symbols\":[]}\tnull\tnull\tnull\tnull\tfalse\t0\t0\t0\t0\tfalse\tfalse\tnull\tlow\ttr\nTue Nov 24 17:19:57 +0000 2020\t1331286444011184131\t1331286444011184131\tLets go\t<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>\tfalse\tnull\tnull\tnull\tnull\tnull\t{\"id\":1280661826485641217,\"id_str\":\"1280661826485641217\",\"name\":\"patriquin1$\",\"screen_name\":\"BrandonPatriqu1\",\"location\":\"Grande Prairie County No. 1, A\",\"url\":null,\"description\":null,\"protected\":false,\"verified\":false,\"followers_count\":40,\"friends_count\":37,\"listed_count\":0,\"favourites_count\":1165,\"statuses_count\":501,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":false,\"lang\":null}\t{\"user_mentions\":[],\"hashtags\":[],\"media\":null,\"urls\":[],\"symbols\":[]}\tnull\tnull\t1331277962767982599\t1331277962767982599\ttrue\t0\t0\t0\t0\tfalse\tfalse\tnull\tlow\ten\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607252432328_788506361",
+      "id": "paragraph_1607252432328_788506361",
+      "dateCreated": "2020-12-06T12:00:32+0100",
+      "dateStarted": "2020-12-06T12:00:52+0100",
+      "dateFinished": "2020-12-06T12:00:53+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:192"
+    },
+    {
+      "text": "-- #7. Total number of tweets and time\nselect count(id) as number_of_tweets from tweets_parquet;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-06T12:47:37+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "number_of_tweets": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201206124737_ee5d4c15-e11f-4678-99a3-0defa011b64b): select count(id) as number_of_tweets from tweets_parquet\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:number_of_tweets, type:bigint, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201206124737_ee5d4c15-e11f-4678-99a3-0defa011b64b); Time taken: 0.125 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201206124737_ee5d4c15-e11f-4678-99a3-0defa011b64b): select count(id) as number_of_tweets from tweets_parquet\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201206124737_ee5d4c15-e11f-4678-99a3-0defa011b64b\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0011\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0011/\nINFO  : Starting Job = job_1607250954367_0011, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0011/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0011\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-06 12:47:56,841 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-06 12:48:04,064 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.36 sec\nINFO  : 2020-12-06 12:48:09,253 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.07 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "number_of_tweets\n11707\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0011/",
+              "$$hashKey": "object:1371"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606645137824_1307399142",
+      "id": "paragraph_1606645137824_1307399142",
+      "dateCreated": "2020-11-29T11:18:57+0100",
+      "dateStarted": "2020-12-06T12:47:37+0100",
+      "dateFinished": "2020-12-06T12:48:11+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:193"
+    },
+    {
+      "text": "-- #8. Resume between Json and Parquet (faster)\n#Tweets in Json: 11707\n#Tweets in Parquet: 11707\n#Time in Json: 40\"\n#Time in Parquet: 1\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T11:51:13+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606645152686_881510285",
+      "id": "paragraph_1606645152686_881510285",
+      "dateCreated": "2020-11-29T11:19:12+0100",
+      "status": "READY",
+      "$$hashKey": "object:194"
+    },
+    {
+      "text": "-- #9. Number of users with geolocation \nselect `user`.screen_name, `user`.geo_enabled\nfrom tweets_parquet\nwhere `user`.geo_enabled == true;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T13:40:48+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "screen_name": "string",
+                      "geo_enabled": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string",
+                      "coordinates": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "screen_name\tgeo_enabled\nAinaraleka\ttrue\nndtv\ttrue\nisigoes\ttrue\nyixiansun\ttrue\nchillilili\ttrue\njameslcarrig\ttrue\nsanjay_2870\ttrue\nMaria_N_Daniel\ttrue\nredaccionmedica\ttrue\nNationAfrica\ttrue\nElSoldeMzt\ttrue\nlinformatiu_tve\ttrue\nCalianGroup\ttrue\ngurujeeGayabh\ttrue\nangelsolleiro\ttrue\nlpemnoticias\ttrue\ncolin_devries\ttrue\nrobertd1981\ttrue\ncronkitenews\ttrue\nMITmedical\ttrue\nSantaMariaCincy\ttrue\nserenel14278447\ttrue\n208Negativeking\ttrue\nJimbo4indy2\ttrue\nkalasapakkamMLA\ttrue\nmanzurali\ttrue\nGayeUsluer\ttrue\nBobEverettRep\ttrue\nIamBerry29\ttrue\nDariaBickham\ttrue\nMontgomeryCoMD\ttrue\nNACCHOalerts\ttrue\nIliasIordanidis\ttrue\nvmrwanda\ttrue\nGarrett_Archer\ttrue\nJMMR95\ttrue\n112Aragon\ttrue\nnakisady\ttrue\nAfricaEUEnergy\ttrue\nshridharjadhav\ttrue\niamcabman\ttrue\nSaidJedidi\ttrue\nsferriam\ttrue\nChrissieBailey2\ttrue\nChangeDiva_Vic\ttrue\nABC7\ttrue\nvaly_s\ttrue\nNotTheRealOpus\ttrue\nPrasadJoshiToI\ttrue\nPpr_11\ttrue\nedin_im\ttrue\nMickaelMorand\ttrue\nmonipanni\ttrue\njasonformiss\ttrue\nlisette225\ttrue\nPalomitaRossy\ttrue\nroman_zambrano\ttrue\nvmrwanda\ttrue\nABN58\ttrue\nDDNewslive\ttrue\nCanextOffl\ttrue\nsurpatagon\ttrue\nAvalon709\ttrue\nTheoEdeJong\ttrue\nEmbaVESiria\ttrue\nATLBUENNO\ttrue\njorblans\ttrue\nKeyLarg59132340\ttrue\nMPRnews\ttrue\nArtanagot\ttrue\nbitcoinconnect\ttrue\ndebradana\ttrue\nHectorGT\ttrue\nluis_r_galindo\ttrue\nFinlayInstituto\ttrue\nRadhika_Khera\ttrue\nLubetso\ttrue\nModenaDintorni\ttrue\ntarynbjones\ttrue\nclosey29\ttrue\nPilottaParma\ttrue\npistachreviews\ttrue\nesperceballos\ttrue\nBrLizge\ttrue\nSergeZarka\ttrue\nPOISSENOT\ttrue\nilGiunco\ttrue\nAJ_9342\ttrue\nCARLOSMENESESA\ttrue\nToddNeale\ttrue\nJazz151617\ttrue\naistronach\ttrue\nsldcc\ttrue\nDogfaeries\ttrue\nPodemAlcoi\ttrue\nsepsis13\ttrue\nednagzzg\ttrue\nnduokoh\ttrue\ntfaurevaucluse\ttrue\nLEO_maths\ttrue\ncarlesgusau\ttrue\nLelaAlstonAz\ttrue\nRobert0Guiscard\ttrue\nArif_Ataoglu\ttrue\nsrvtskr\ttrue\nDCorleone54\ttrue\nSFunkyTravel\ttrue\n1garipfani\ttrue\nRaiscaraAvalon\ttrue\nUofSC_SHS\ttrue\nShabbychicforme\ttrue\nSvartGrenadier\ttrue\neneidachak\ttrue\nkontrapunto\ttrue\nKevin_Margottat\ttrue\nkuldeep_2105\ttrue\njcvillamar\ttrue\nSimplie_Bella\ttrue\nFightfor15LA\ttrue\ndiscangirl\ttrue\nMatthewRehrl\ttrue\nMahirBlk\ttrue\nRW3TV\ttrue\nWebjournaux\ttrue\nFLRENTERPRISES\ttrue\nIgorTrujilloC\ttrue\ncat17534\ttrue\nRijnPatrick\ttrue\niSinghRanjeet\ttrue\nsprague716\ttrue\nNayiQuevedo\ttrue\nCRose2u\ttrue\njonobst\ttrue\n_Friesforlife\ttrue\nkavi137_offcl\ttrue\nDAVIDROMEROVARA\ttrue\ngemmaraquel\ttrue\nCarle_org\ttrue\nCuquis\ttrue\nCarle_org\ttrue\nmariarossa004\ttrue\nandy_woodfield\ttrue\nSanLorePrimero\ttrue\nGiovanniToti\ttrue\nBobbieGaleB\ttrue\nLaurenMcgowan\ttrue\nsteffersline\ttrue\nrkremer13\ttrue\nPriyoritized\ttrue\n_gabge\ttrue\nGPigliacampi\ttrue\nmbmc_cmcm\ttrue\nUKPNnews\ttrue\ncm31745\ttrue\nBurriezaMateos\ttrue\nbitcoinconnect\ttrue\nsclange\ttrue\nbitcoinconnect\ttrue\ngmejiabez\ttrue\nvegesoft\ttrue\nDrOliverCris\ttrue\npollitachilanga\ttrue\nMarioAbrahamLo3\ttrue\nPulsipher_WGU\ttrue\nImmunizeNV\ttrue\nKarlBrophy\ttrue\nIJurisdiction\ttrue\ntimhalliday7\ttrue\nJesusFe21010785\ttrue\nbawdynan\ttrue\nyvettedoc50\ttrue\ncalderas08\ttrue\nTonySteel60\ttrue\nbornstroppy\ttrue\nesportsenxarxa\ttrue\nabuhenna\ttrue\nilktomi\ttrue\neaswaranrutnam\ttrue\nAlyssa_Jezelle\ttrue\nAnudeepVarmaC\ttrue\nerisnolpalacio2\ttrue\ntarun10sharma\ttrue\n_mlfjpj\ttrue\nBaykanDildar\ttrue\nABokazhanova\ttrue\nCPAC_TV\ttrue\nSciCommSara\ttrue\nAlyssa_Jezelle\ttrue\nBERLINER_KURIER\ttrue\nTexSandra210\ttrue\nThe_3rd_Umpire\ttrue\nRHJOfficial\ttrue\nHarrogateEldMed\ttrue\nezarkadoula\ttrue\nkkmishra1987\ttrue\nNicolasMeilhan\ttrue\ncommonwealthsec\ttrue\nConKdeKris\ttrue\njc_moon10\ttrue\nAMR_KHI\ttrue\ndenizbaer\ttrue\nAR1info\ttrue\nArielNana26\ttrue\nYsfkpln89\ttrue\ni_shailsingh\ttrue\nsamoore\ttrue\nzsenakkaya\ttrue\nlouiseblandry\ttrue\nhluzearismendi\ttrue\nVodkaWardrobe\ttrue\nDrewDixon30\ttrue\nAbhiSinghINC\ttrue\nPatrici50398394\ttrue\nFmlyValuesWork\ttrue\nAlyssa_Jezelle\ttrue\nTOSADORIDANIELA\ttrue\nRayLiuNYC\ttrue\nRicky_LTV\ttrue\nRmj0101\ttrue\nThe_3rd_Umpire\ttrue\ndbates71\ttrue\nTeresaSegars\ttrue\nmyBharatMahaan\ttrue\nDrOliverCris\ttrue\nJesusFe21010785\ttrue\nSLealRx\ttrue\nABokazhanova\ttrue\nebscbwi\ttrue\nDiegoNicol2\ttrue\njhosepglez72\ttrue\nWilliamYang120\ttrue\nblanquitaguizar\ttrue\ndonsari04\ttrue\ncsorensen4\ttrue\nnanaandpapa2000\ttrue\nlandislife\ttrue\nn0passaran\ttrue\nOzkar0029\ttrue\nJeremy13605986\ttrue\nSenHughesOffice\ttrue\nPPRCORP\ttrue\nEkleelBS\ttrue\n1BomberoMelilla\ttrue\nemiliovicruz\ttrue\nBuyudus\ttrue\ngigiOne87_\ttrue\nlic_aguadohdez\ttrue\ndquichimbo\ttrue\nGoldschmiedPhd\ttrue\nChrist83C\ttrue\nformosagobar\ttrue\njoejaggi\ttrue\nmerrillnuttall\ttrue\naajtak\ttrue\nSubsecretariaT\ttrue\npeltheas\ttrue\nBLACK_GRAS\ttrue\nGonzaLeyesOk\ttrue\nSiyaNinela\ttrue\n_MattSewell\ttrue\nBiblioArchives\ttrue\nmastodontefire\ttrue\nsatyajithpinku\ttrue\nDowntownOKC\ttrue\nGeballari\ttrue\narterec\ttrue\nTorSchTheology\ttrue\nbrowntailedhawk\ttrue\nLVGEA\ttrue\nserpilcandan99\ttrue\nmichele_cambie\ttrue\nHarisSamiPTI\ttrue\nHealthyBoston\ttrue\nlogicalfilipino\ttrue\nLarryHogan\ttrue\njcervantesj\ttrue\nhujodaddy1\ttrue\nCrisisNetworkAZ\ttrue\nGoberNapo\ttrue\njuliaremache\ttrue\nmgp121018\ttrue\nChuckHoskin_Jr\ttrue\nwiselaw\ttrue\nhectorvalle\ttrue\nPennCapitalStar\ttrue\nmikepsilva\ttrue\nsonics_comehome\ttrue\nVTDeptTaxes\ttrue\ndirealsachin\ttrue\nIsraelaMTL\ttrue\nfrhsulikin\ttrue\nnicolettagrima2\ttrue\nINC_CathLab\ttrue\ncpalmamd\ttrue\nDianaFry18\ttrue\namarilis439\ttrue\nnrfaalia\ttrue\nCrisisNetworkAZ\ttrue\nAlexeiBJordan\ttrue\nChefAnnFnd\ttrue\nsue_currin\ttrue\nserpilcandan99\ttrue\nCourtneyJohnsTV\ttrue\nNoRcuRoN31\ttrue\nanniefrance38\ttrue\nMorenikeGO\ttrue\njulissaa15_\ttrue\nHzHutchinson\ttrue\ncactus24noticia\ttrue\nABhoysVoice\ttrue\nnusagatero\ttrue\nestarianne\ttrue\nChAbdul43739085\ttrue\nMARIPOSAMIRABAL\ttrue\nPSOE_Galapagar\ttrue\nSSunnynishad\ttrue\ncamille_bcqt\ttrue\nformosagobar\ttrue\npatagoinfo\ttrue\nClimateMalware\ttrue\ngauloispatriot\ttrue\ncostellodaniel1\ttrue\nrwwonwheels\ttrue\nscottweller123\ttrue\njhawkjmoney\ttrue\nRadioNLNews\ttrue\nBetzMyboyblue11\ttrue\nchadhashiva\ttrue\nmagalievicente\ttrue\nrose_hunter\ttrue\nMundoCienciaOK\ttrue\nluisocdb\ttrue\nsanjay_2870\ttrue\ncaitiesavoy\ttrue\naccessfreely\ttrue\nndtv\ttrue\nStefanSR39\ttrue\nCLRI_LTC\ttrue\nIEPS_Ec\ttrue\nJorgeVR73\ttrue\nHoustonTX\ttrue\nUMMSLibrary\ttrue\nRetraJo\ttrue\niasgirona\ttrue\nInvestorGossip\ttrue\naciprensa\ttrue\nsallyfuschia\ttrue\nCarolpg12\ttrue\nsbprice\ttrue\njlnvra\ttrue\nl_a_chop70\ttrue\nDaddysgirlCora\ttrue\ndavid_landis\ttrue\njuanlom64\ttrue\ndan_rar\ttrue\nchatta_girl\ttrue\nCassidyAnnCyr\ttrue\nMiguelRoez\ttrue\nmonipanni\ttrue\nZaraKing\ttrue\nMabaleeZeebee\ttrue\nParasKGhelani\ttrue\nBakhtawar_Ik\ttrue\nMountSinaiRehab\ttrue\nHasarliKalpler\ttrue\njoe_le_zef\ttrue\nTiborskiM6\ttrue\nrsaAlberta\ttrue\naajtak\ttrue\nkaelahxmay\ttrue\n34Eule\ttrue\nccs_nhst\ttrue\nausoloda\ttrue\nRalphStanger\ttrue\nAgnesLeroux\ttrue\nCalifornia_HCD\ttrue\nBrennanAllergy\ttrue\ninformavalencia\ttrue\npiratomat\ttrue\nmelissamvl\ttrue\nZakyRomero\ttrue\nruthmkb\ttrue\nbrendygribben\ttrue\njoycerosas\ttrue\nswxft_\ttrue\njorge_gigante23\ttrue\nupatrocinio\ttrue\nchristellar\ttrue\ndawnarrabito\ttrue\nsanjay_2870\ttrue\nTrTatdus\ttrue\nDONGODY\ttrue\ncostellodaniel1\ttrue\nrwwonwheels\ttrue\nPortalCubaSi\ttrue\nluisavedillo\ttrue\nsherkohmazari\ttrue\nI_m_aakash_rawT\ttrue\nShawnFremstad\ttrue\nKaiorDiie\ttrue\ncstarragonaprov\ttrue\ndhmontgomery\ttrue\nIngeGem\ttrue\nItsJBlack_\ttrue\nJESievers\ttrue\nchadhashiva\ttrue\njoselemijas\ttrue\nFBigliardo\ttrue\n_BelenBravo\ttrue\nulimuench\ttrue\nLucianoPetrullo\ttrue\ntodogolec\ttrue\nchantakabalamen\ttrue\nAmelLttl\ttrue\nsoile_lahti\ttrue\ntusharbedi\ttrue\nKlehr_Harrison\ttrue\nAnnaMietta\ttrue\nSupriyasridhar_\ttrue\nkatemcgowanyay\ttrue\nIFEMA\ttrue\nlawproflain\ttrue\ncaosytsejam\ttrue\nteikmanis\ttrue\nCalNurses\ttrue\nForoFeministaRD\ttrue\nmarie_anice\ttrue\nChristophSchuRi\ttrue\nReallyverysally\ttrue\nsaeidamhhm1\ttrue\nnotanniet1\ttrue\nmonipanni\ttrue\nNOTICIEROS7\ttrue\nMPRnews\ttrue\nAlainsauton\ttrue\nJohan1725\ttrue\nKikeMlaga\ttrue\nmelanie_korach\ttrue\nRyanMcGreal\ttrue\nSemFex\ttrue\n3NewsNowOmaha\ttrue\nsilvialamana\ttrue\nTinimaus1110\ttrue\nsanjay_2870\ttrue\nchadhashiva\ttrue\nChristiAnne67\ttrue\nbitcoinconnect\ttrue\nscottleibrand\ttrue\nillusuhasionist\ttrue\nCabraDorada\ttrue\nLucatt_\ttrue\nJTrianaT\ttrue\nhector_pz_mrls\ttrue\nANDPublicidad\ttrue\nAyMe_AyMe7\ttrue\noneadebo\ttrue\nchevalierleroux\ttrue\nAPDNoticias\ttrue\nzabaltzen\ttrue\npogany54\ttrue\nfero70763129\ttrue\nAnnMagayante\ttrue\na_rsl_an\ttrue\nfadergator\ttrue\ng_de_dionigi\ttrue\nATUlocal113\ttrue\ndawn_m32819\ttrue\nsaeidamhhm1\ttrue\njosfe_c\ttrue\nAndyfromTucson\ttrue\nRanchiPIB\ttrue\nDawdMark\ttrue\niRoshan_Rv\ttrue\nopivali\ttrue\nGobiernoEdoChih\ttrue\nCoynesGastropub\ttrue\nJuanMa_GomezS\ttrue\ncarlanorris1\ttrue\nspinfocl\ttrue\naltpirineuaran\ttrue\nSinghTivendra\ttrue\nvolkan_bozkir\ttrue\njsemanario\ttrue\nStandardKenya\ttrue\nyalovafm\ttrue\nMichaelJortner\ttrue\nValeRossignoli\ttrue\nCllrSteveBowles\ttrue\ngeoffreylock\ttrue\nsweetmariecc\ttrue\nmngopherbroke\ttrue\npolitifilo\ttrue\nazaria_peter\ttrue\ncarmenxixon\ttrue\nMPRnews\ttrue\nWillSeattle\ttrue\ngiovanni_leoni7\ttrue\nimadamcarroll\ttrue\nAuroriaTwittori\ttrue\ncamarillo_radio\ttrue\ngiuliog\ttrue\nparexplorarmsp\ttrue\nCutralla\ttrue\nwhite_cwhite930\ttrue\nHoustonHealth\ttrue\nPhilipOgola\ttrue\nRolando71016713\ttrue\nMinazotaGurl\ttrue\nbertran_brillas\ttrue\nMENDIHOTZA_FBPE\ttrue\nWGNNews\ttrue\nPSOEAlcaladeH\ttrue\nELPITERONORTE\ttrue\nIrreverantMatt\ttrue\nsofinique1\ttrue\nABokazhanova\ttrue\nReturnoftheVIC\ttrue\nYOMEQUE63273072\ttrue\nChris_Watts\ttrue\nspicycheeni\ttrue\nantoniodivine\ttrue\nsvetlanaqqccmh\ttrue\nsba1211\ttrue\nMikeMikolic\ttrue\nrobynsch\ttrue\nIlhanSelanikli\ttrue\nsoonerfanjps\ttrue\nWLTX\ttrue\nslytwain\ttrue\nNaaba223\ttrue\nLeNectarivore\ttrue\nginex68\ttrue\nNNUBonnie\ttrue\nPropwayuk\ttrue\nXyra91\ttrue\n_ShadowBoxer_\ttrue\ndailystar\ttrue\ndoganmaden\ttrue\nemmanuel_mtz\ttrue\nAnalisa_Swan\ttrue\natakcan71boks\ttrue\npatri30atm\ttrue\nmeg_e_martin\ttrue\nchrisfarnsworth\ttrue\nPorfirioZamudio\ttrue\nMxCapitalino\ttrue\nPristinaorg\ttrue\nLEOacademies\ttrue\nsanjay_2870\ttrue\nanja_36\ttrue\nTonyT41006860\ttrue\nwaasantista\ttrue\ngoodwinlaw\ttrue\ncuerdodeatar\ttrue\nITI_TechTweets\ttrue\nmonipanni\ttrue\nVershaii\ttrue\npaulgerrard1971\ttrue\nJose14c\ttrue\nnat_nat5381\ttrue\ngmabambam\ttrue\nGreefToby\ttrue\ncatalejo69\ttrue\nignnaacioo\ttrue\nRz_mwj\ttrue\nhelviala\ttrue\n7jiggs\ttrue\nKlickmichi\ttrue\nJQ_lector\ttrue\nDom972Joe\ttrue\nquiteriaga\ttrue\ngavreilly\ttrue\nessentialairsvc\ttrue\nKathleeRowlands\ttrue\nManoranjan_TNIE\ttrue\nlacavaz\ttrue\nlilianaciorra\ttrue\nRetraJo\ttrue\nParent_Voices\ttrue\nmonroves\ttrue\nnemesioang\ttrue\nVanessaRuffes\ttrue\nsanjay_2870\ttrue\nAnCassVen\ttrue\nsantanrhys\ttrue\nGeurtie\ttrue\njcambl33\ttrue\nnashik_feed\ttrue\nCarlitoS_lim\ttrue\nnewschambers\ttrue\nedgarfabianvf\ttrue\nAleCalamp4\ttrue\nChef_dil_capo\ttrue\nEpiEllie\ttrue\ncapeannsky\ttrue\nmireillemido\ttrue\nrwwonwheels\ttrue\nspecies_x\ttrue\nLangeNase\ttrue\nROSSIASK\ttrue\n65intexas\ttrue\nDhavalKhatriDK\ttrue\necarpinum\ttrue\nl6a7\ttrue\nBryanMojito\ttrue\nKaren_Kinomoto\ttrue\nindyo6\ttrue\nNatdsjose\ttrue\nscastiello\ttrue\nDiscoverCREtech\ttrue\ngiu33liana\ttrue\ntechweenie\ttrue\nA2D2_\ttrue\njerra_woznick\ttrue\nJacobRam95\ttrue\nChloeHarpst\ttrue\nvillarre11\ttrue\ndvieriu\ttrue\nSonia_Cameselle\ttrue\nmikehanleyBOL\ttrue\nk_fernholz\ttrue\ntwodogsing\ttrue\ncatalindadiana\ttrue\nalfredHOEEE\ttrue\ngarciaal2\ttrue\nUSAShopper\ttrue\nMorenaSenadores\ttrue\ncanredcrosspei\ttrue\nZulfiqarAliHash\ttrue\nKathleeRowlands\ttrue\nGivanAndre\ttrue\nDrAnthony\ttrue\nIlindelatorreMD\ttrue\nFundVisitVal\ttrue\nEleuterio007\ttrue\nmbastaw\ttrue\nSheilaMyatra\ttrue\nChanning_TV\ttrue\nNimasema\ttrue\nJosepRufa\ttrue\nRodrigoFras4\ttrue\nSacchiGg\ttrue\nelsurdeguerrero\ttrue\nMiguel_Coleta\ttrue\nrunews24ru\ttrue\nalpcandle\ttrue\nnatyxo__\ttrue\nluiselopez\ttrue\ndanwavell\ttrue\nAkanksha918\ttrue\nPUW_Gdansk\ttrue\nAlexInAir\ttrue\nbeighdnawab\ttrue\nsvetlanaqqccmh\ttrue\nMiguel_Coleta\ttrue\nkinnarshah\ttrue\nMylittle_place\ttrue\ntolgacelik2002\ttrue\njambagivenku\ttrue\nBorgheseAmira\ttrue\nMontesinos2010\ttrue\nFernhandoSB\ttrue\nNewsJTamil\ttrue\njfoulis3gmailc1\ttrue\nClinicalOMICs\ttrue\npetedako\ttrue\nTDolors\ttrue\nNationalNurses\ttrue\ndeepakbjym143\ttrue\nbencerda09\ttrue\nbisciaz\ttrue\nchrisgray71\ttrue\nbulonka\ttrue\ngtfromnb\ttrue\nRunwayGirlBecca\ttrue\nelanshore\ttrue\nednamaemae\ttrue\nPestoChampion\ttrue\ncameronmwerner\ttrue\nYellaToko91\ttrue\nyvettedube\ttrue\nAwanSweet\ttrue\nescafint\ttrue\nConfluentesInfo\ttrue\nUdaypatel30\ttrue\nBorgheseAmira\ttrue\nMagui_Magica\ttrue\nrachaiello\ttrue\nSunilDutt_inc\ttrue\ncackiness\ttrue\nfridaj1\ttrue\nactorexpo\ttrue\neugoogolizer\ttrue\nNavid_7272\ttrue\nValoraAnalitik\ttrue\nvishalarorabjp\ttrue\nNationalNurses\ttrue\neduardo28774771\ttrue\nsimonjduffy\ttrue\nTacumasong\ttrue\nMitch1919\ttrue\nvicgarciasan\ttrue\nNewsCannon\ttrue\nNElianaxo_\ttrue\npsoebetxi\ttrue\nmanuansaras\ttrue\nfatihtank\ttrue\nYuliyaInopinaPR\ttrue\nfrancotaratufo2\ttrue\nRMR22451272\ttrue\ntagesschau\ttrue\nASEDawg89\ttrue\nblanquitaguizar\ttrue\nThomasCollinge\ttrue\nKumarKunalmedia\ttrue\nians_india\ttrue\nkingofthe9\ttrue\nSennaGianMarco\ttrue\nComberM\ttrue\nGoberNapo\ttrue\nIEA\ttrue\nKathleen_Wynne\ttrue\nDrNadirMD\ttrue\nWhite_Good\ttrue\nLODOSAinfo\ttrue\nDraganaObrado20\ttrue\nntlalliancehlth\ttrue\nCesarCamposM\ttrue\nHeckWeAre\ttrue\nCUWestBerks\ttrue\naf_ecn\ttrue\nclaudfu\ttrue\nintpolicydigest\ttrue\ncdauverchain\ttrue\nWFF_Women\ttrue\ncolombogazette\ttrue\nDemocraticIdeal\ttrue\nUNESCO_es\ttrue\nelsajanie\ttrue\nognitroz\ttrue\njuampyro\ttrue\napha_analysts\ttrue\nCBozoklar06\ttrue\ndiobadiallo\ttrue\nDubai_111111\ttrue\nARSPaca\ttrue\njosssmiles\ttrue\ncdauverchain\ttrue\nKDooleyYoung\ttrue\nNonprofitCFOs\ttrue\nVCU\ttrue\nUSAShopper\ttrue\nk3nnr\ttrue\ncrainsdetroit\ttrue\ncafifal\ttrue\nTyrenePamstein\ttrue\nC_H4RL13\ttrue\nStopHungerUSA\ttrue\nOroazul1\ttrue\nConnor_R_Hansen\ttrue\nJurek66Jerzy\ttrue\nNesibe47159784\ttrue\nilktomi\ttrue\nmaricopacounty\ttrue\ntravonradio\ttrue\notta_daniel\ttrue\nmikecoulson48\ttrue\nlizwainger\ttrue\ninstitutpasteur\ttrue\nP0is0n_Dagg3r\ttrue\nprabhatm23\ttrue\nflorinvio\ttrue\nvilela_lucio\ttrue\nIVostriSoldi\ttrue\nEl_estudiante00\ttrue\nRealRichUlloa\ttrue\nciess_org\ttrue\nMassasoit1620\ttrue\naltoaragon\ttrue\nSaurabh_Singh87\ttrue\ngaryrobi\ttrue\nJoffenKleiven\ttrue\nFibHunter\ttrue\n_FredericGal\ttrue\ndhrubachoudhur5\ttrue\nphyafulla\ttrue\nSoft_Wang\ttrue\nvilt_nieuws\ttrue\nRRidley11\ttrue\nSLOinGER\ttrue\ntkparida\ttrue\nsumairakh\ttrue\nKimdavis1919\ttrue\nSixx123\ttrue\naxurit67\ttrue\ntalhaji_007\ttrue\nMOYHDEZ\ttrue\nCoreyStruzan\ttrue\nIstimrar\ttrue\ndavidgrierson70\ttrue\nangelina_namiba\ttrue\nmadmamavotes\ttrue\nazul_marino_3\ttrue\nwitam_mfo_\ttrue\nBankoFranci\ttrue\nArturoA95970015\ttrue\nVHSD12FLECK\ttrue\nJCH94512825\ttrue\nse1\ttrue\nDebWinkleblack\ttrue\nGarrett_Archer\ttrue\nshemin_joy\ttrue\njeffreyluscious\ttrue\neunicecatuchal\ttrue\njmorat\ttrue\nSweetCookiesme\ttrue\naftjae\ttrue\nDavidCranmerUn1\ttrue\nmaraxrivera\ttrue\nPsychicHealerC\ttrue\nNCCU\ttrue\nGoberChimborazo\ttrue\neunicecatuchal\ttrue\nChrisGrant1968\ttrue\nmfyanchapaxi\ttrue\nLuisCosgayaSant\ttrue\nMAC1491\ttrue\nanadoluagency\ttrue\nfernandofrega\ttrue\nDiokoides\ttrue\nRecook63Russell\ttrue\nRammsfer\ttrue\nAmeerHafiy\ttrue\nPinotjon\ttrue\njackiantonovich\ttrue\nBakerCHB\ttrue\nDEADGRNEYEDPG\ttrue\nadanbalcazar\ttrue\nEdenburgJoan\ttrue\nAnneJMcKay\ttrue\nminnbrewer\ttrue\niphigeniasghost\ttrue\nnapocornejo\ttrue\nClayreInTucson\ttrue\nmariarossa004\ttrue\nLongwoodsNotes\ttrue\nSweetCookiesme\ttrue\nGPeppe34N\ttrue\nSergioGonzalezF\ttrue\nFibHunter\ttrue\nGoberChimborazo\ttrue\njcarlospuebla\ttrue\nTamalit_S\ttrue\nciess_org\ttrue\nJimbyrnemusic\ttrue\nHennepinHC\ttrue\nAlexanderKlebe\ttrue\nVivaNicaragua13\ttrue\nritawnyaga\ttrue\nmatteoc1951\ttrue\nSashaEats\ttrue\nvitaindiretta\ttrue\nBNPParibasCIB\ttrue\nCatLadyDarcy\ttrue\nHasimeGashi\ttrue\nLynnCatWalters\ttrue\nitskavitadeval\ttrue\nWorldUnity1\ttrue\nIliadaodisea2\ttrue\neunicecatuchal\ttrue\nSweetCookiesme\ttrue\nvillanmce\ttrue\nVaniaDelli\ttrue\nvipenjain2260\ttrue\nninafia19\ttrue\nbelle_adele\ttrue\nKevin_ThePas\ttrue\nanna_bttrade\ttrue\nDINARDAP\ttrue\nHumbertoJL\ttrue\nVishnopiS\ttrue\nbankofcanada\ttrue\nbanqueducanada\ttrue\nramsgateweek\ttrue\nGiannisEutux\ttrue\nhashtagiamchole\ttrue\nteoriantropolog\ttrue\njlfischer78\ttrue\nNotoriousVOG\ttrue\nkeithwhitney\ttrue\nstormcaptain\ttrue\nLE_SML\ttrue\nReynaCeciliaSM\ttrue\nrtiscarten\ttrue\nNLADA\ttrue\ncatalancheros\ttrue\nvuralelibol\ttrue\naminaziz57\ttrue\ninto_seminar\ttrue\nallywalker1\ttrue\npmuruaandrade\ttrue\nnighealthwatch\ttrue\nmimyb2109\ttrue\nambientumcom\ttrue\nOlmedoOC\ttrue\nNutridepor\ttrue\nTargetedOnc\ttrue\nplanwac\ttrue\nVivienJuste\ttrue\nQueensCareHC\ttrue\nJulia_Reid_JC\ttrue\nVDHgov\ttrue\nkushalvyas16\ttrue\nWillowHollybee\ttrue\nMuniColina\ttrue\nsundene\ttrue\nTimExcludedUK\ttrue\nSirWesleyThe1st\ttrue\nLilianeLuwaga2\ttrue\nclicerasb\ttrue\nCloud_CIO_\ttrue\nF4FMH\ttrue\nveraoxford2020\ttrue\nmolinademuller\ttrue\nnjrealtornic\ttrue\nJessRoldn8\ttrue\nbitcoinconnect\ttrue\nFrontRunnerHC\ttrue\nRugbyTackling\ttrue\nCaregiverAction\ttrue\nUNICEFAndalucia\ttrue\nMaMoramay\ttrue\nDingley\ttrue\npacientesPOP\ttrue\ncorinnebailey\ttrue\nOne40Hurtz\ttrue\nShahbaz00263250\ttrue\ngalousin\ttrue\nSirWesleyThe1st\ttrue\nNannyTaxes\ttrue\nJPSYS\ttrue\nDivaKnevil\ttrue\nhkdemonow\ttrue\npattylou1320\ttrue\nCJJames\ttrue\nSTPsantiagoSA\ttrue\nraincoaster\ttrue\nVisualPersist\ttrue\n_donesPSC\ttrue\nenergia_org\ttrue\ng_evgenidis\ttrue\nSGIRPC_CDMX\ttrue\nRicardoScazzino\ttrue\neLAC_CEPAL\ttrue\nMedairFR\ttrue\nsusieru\ttrue\nTechGenyz\ttrue\nResearchAmerica\ttrue\nmeerkhan1235\ttrue\nMaheshJagga\ttrue\nRajniSetia7\ttrue\nUAZPublicHealth\ttrue\ndavidwbrown\ttrue\nETrinitymirror\ttrue\nKerrySueB\ttrue\niciquebec\ttrue\nIEdatasolutions\ttrue\nargentinafalcon\ttrue\ngremlin2c\ttrue\nLeo157Zotti\ttrue\nemco_ep\ttrue\nUnivisionAZ\ttrue\nartalat\ttrue\nerin_caitrin\ttrue\nMediagol\ttrue\nemco_ep\ttrue\nAustinLouis5\ttrue\nWiAnselmo\ttrue\nemco_ep\ttrue\nFundacion_SERES\ttrue\ni_Vannnn\ttrue\nnyro_\ttrue\nUSAShopper\ttrue\nAppleSyncBrasil\ttrue\nyakhob_ben_ezra\ttrue\nDomAlmighty_\ttrue\nAhmedWagih\ttrue\njohangreg\ttrue\nadriiondack\ttrue\nGovLarryHogan\ttrue\njavimen_f\ttrue\nvaleruizz\ttrue\nMelitaSekgwa\ttrue\nAndyrMichel\ttrue\nkoomefestus2\ttrue\nonepe14\ttrue\nProf_AJScott\ttrue\nosma\ttrue\nNCRCorporation\ttrue\nValebsr\ttrue\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1606646221455_590014029",
+      "id": "paragraph_1606646221455_590014029",
+      "dateCreated": "2020-11-29T11:37:01+0100",
+      "dateStarted": "2020-12-08T12:47:01+0100",
+      "dateFinished": "2020-12-08T12:47:01+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:195"
+    },
+    {
+      "text": "-- #10. Number of tweets per language\nselect count(id) as tweets_per_language, lang\nfrom tweets_parquet\ngroup by lang;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T11:52:34+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "tweets_per_language": "string",
+                      "lang": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201218115134_143ec6a3-5ecd-492f-97a7-68a21ccec46f): select count(id) as tweets_per_language, lang\nfrom tweets_parquet\ngroup by lang\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:tweets_per_language, type:bigint, comment:null), FieldSchema(name:lang, type:string, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201218115134_143ec6a3-5ecd-492f-97a7-68a21ccec46f); Time taken: 0.205 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201218115134_143ec6a3-5ecd-492f-97a7-68a21ccec46f): select count(id) as tweets_per_language, lang\nfrom tweets_parquet\ngroup by lang\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201218115134_143ec6a3-5ecd-492f-97a7-68a21ccec46f\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0006\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0006/\nINFO  : Starting Job = job_1608287900563_0006, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0006/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0006\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 11:51:52,068 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 11:51:57,609 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.72 sec\nINFO  : 2020-12-18 11:52:03,821 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.93 sec\nINFO  : MapReduce Total cumulative CPU time: 3 seconds 930 msec\nINFO  : Ended Job = job_1608287900563_0006\nINFO  : MapReduce Jobs Launched: \nINFO  : Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.93 sec   HDFS Read: 136925 HDFS Write: 890 SUCCESS\nINFO  : Total MapReduce CPU Time Spent: 3 seconds 930 msec\nINFO  : Completed executing command(queryId=osbdet_20201218115134_143ec6a3-5ecd-492f-97a7-68a21ccec46f); Time taken: 30.631 seconds\nINFO  : OK\nINFO  : Concurrency mode is disabled, not creating a lock manager\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "tweets_per_language\tlang\n38\tar\n3\tbg\n2\tbn\n85\tca\n4\tcs\n4\tda\n300\tde\n62\tel\n5825\ten\n2325\tes\n19\tet\n2\teu\n9\tfa\n3\tfi\n786\tfr\n6\tgu\n264\thi\n5\tht\n39\tin\n499\tit\n20\tja\n3\tkn\n2\tlv\n1\tml\n8\tmr\n1\tne\n146\tnl\n3\tno\n3\tpa\n24\tpl\n148\tpt\n11\tro\n14\tru\n14\tsi\n22\tsl\n11\tsv\n20\tta\n5\tte\n5\tth\n16\ttl\n294\ttr\n5\tuk\n601\tund\n41\tur\n9\tzh\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0006/",
+              "$$hashKey": "object:1497"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607253381353_234880554",
+      "id": "paragraph_1607253381353_234880554",
+      "dateCreated": "2020-12-06T12:16:21+0100",
+      "dateStarted": "2020-12-18T11:51:34+0100",
+      "dateFinished": "2020-12-18T11:52:04+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:196"
+    },
+    {
+      "text": "-- #11. Top 10 users with more tweets \nselect `user`.screen_name, count(id) as number_of_tweets\nfrom tweets_parquet\ngroup by `user`.screen_name\norder by count(id) desc\nlimit 10;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T12:23:26+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "screen_name": "string",
+                      "_c1": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201208130144_6b1951a4-5cba-4f5a-a056-67658950de66): select `user`.screen_name, count(id)\nfrom tweets_parquet\ngroup by `user`.screen_name\norder by count(id) desc\nlimit 10\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:user.screen_name, type:string, comment:null), FieldSchema(name:_c1, type:bigint, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201208130144_6b1951a4-5cba-4f5a-a056-67658950de66); Time taken: 0.083 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201208130144_6b1951a4-5cba-4f5a-a056-67658950de66): select `user`.screen_name, count(id)\nfrom tweets_parquet\ngroup by `user`.screen_name\norder by count(id) desc\nlimit 10\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201208130144_6b1951a4-5cba-4f5a-a056-67658950de66\nINFO  : Total jobs = 2\nINFO  : Launching Job 1 out of 2\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0022\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0022/\nINFO  : Starting Job = job_1607250954367_0022, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0022/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0022\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-08 13:01:55,818 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-08 13:02:01,937 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.13 sec\nINFO  : 2020-12-08 13:02:07,059 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.54 sec\nINFO  : MapReduce Total cumulative CPU time: 3 seconds 540 msec\nINFO  : Ended Job = job_1607250954367_0022\nINFO  : Launching Job 2 out of 2\nINFO  : Starting task [Stage-2:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0023\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0023/\nINFO  : Starting Job = job_1607250954367_0023, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0023/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0023\nINFO  : Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-08 13:02:21,465 Stage-2 map = 0%,  reduce = 0%\nINFO  : 2020-12-08 13:02:26,637 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.23 sec\nINFO  : 2020-12-08 13:02:31,722 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 2.27 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "screen_name\t_c1\ncovidnewsCH\t57\nviralvideovlogs\t40\nBot_Corona_V\t31\nsanjay_2870\t28\nwein_van\t16\nmonipanni\t15\nkthsxl\t12\nSainaga55319456\t12\nFibHunter\t12\nblogcu3460\t12\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0022/",
+              "$$hashKey": "object:1543"
+            },
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0023/",
+              "$$hashKey": "object:1544"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607254089095_1399079998",
+      "id": "paragraph_1607254089095_1399079998",
+      "dateCreated": "2020-12-06T12:28:09+0100",
+      "dateStarted": "2020-12-08T13:01:43+0100",
+      "dateFinished": "2020-12-08T13:02:32+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:197"
+    },
+    {
+      "text": "-- #12. Top 10 users with more followers \nselect `user`.screen_name, `user`.followers_count as number_of_followers\nfrom tweets_parquet\ngroup by `user`.screen_name, `user`.followers_count\norder by `user`.followers_count desc\nlimit 10;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T12:23:56+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "screen_name": "string",
+                      "followers_count": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201217170831_0a495876-cf92-44c7-92cf-d2e85feb8874): select `user`.screen_name, `user`.followers_count\nfrom tweets_parquet\ngroup by `user`.screen_name, `user`.followers_count\norder by `user`.followers_count desc\nlimit 10\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:user.screen_name, type:string, comment:null), FieldSchema(name:user.followers_count, type:int, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201217170831_0a495876-cf92-44c7-92cf-d2e85feb8874); Time taken: 1.204 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201217170831_0a495876-cf92-44c7-92cf-d2e85feb8874): select `user`.screen_name, `user`.followers_count\nfrom tweets_parquet\ngroup by `user`.screen_name, `user`.followers_count\norder by `user`.followers_count desc\nlimit 10\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201217170831_0a495876-cf92-44c7-92cf-d2e85feb8874\nINFO  : Total jobs = 2\nINFO  : Launching Job 1 out of 2\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608220561199_0001\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608220561199_0001/\nINFO  : Starting Job = job_1608220561199_0001, Tracking URL = http://localhost:8088/proxy/application_1608220561199_0001/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608220561199_0001\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-17 17:09:01,542 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-17 17:09:07,803 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.53 sec\nINFO  : 2020-12-17 17:09:14,048 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.85 sec\nINFO  : MapReduce Total cumulative CPU time: 3 seconds 850 msec\nINFO  : Ended Job = job_1608220561199_0001\nINFO  : Launching Job 2 out of 2\nINFO  : Starting task [Stage-2:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608220561199_0002\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608220561199_0002/\nINFO  : Starting Job = job_1608220561199_0002, Tracking URL = http://localhost:8088/proxy/application_1608220561199_0002/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608220561199_0002\nINFO  : Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-17 17:09:39,114 Stage-2 map = 0%,  reduce = 0%\nINFO  : 2020-12-17 17:09:45,282 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.79 sec\nINFO  : 2020-12-17 17:09:56,644 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.19 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "screen_name\tfollowers_count\nndtv\t13995378\nndtv\t13995361\nndtv\t13995359\ntimesofindia\t13237562\nUN\t13203243\naajtak\t11397294\naajtak\t11397250\naajtak\t11397204\naajtak\t11397202\nhtTweets\t7818916\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608220561199_0001/",
+              "$$hashKey": "object:1594"
+            },
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608220561199_0002/",
+              "$$hashKey": "object:1595"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607254425921_1309125809",
+      "id": "paragraph_1607254425921_1309125809",
+      "dateCreated": "2020-12-06T12:33:45+0100",
+      "dateStarted": "2020-12-17T17:08:31+0100",
+      "dateFinished": "2020-12-17T17:09:57+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:198"
+    },
+    {
+      "text": "-- #13. Top 10 more popular hashtags \nselect count(*) as frequency, `entities`.hashtags.text\nfrom tweets_parquet lateral view explode(`entities`.hashtags.text) h as hashtag\ngroup by `entities`.hashtags\norder by frequency desc\nlimit 10;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T12:27:12+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "frequency": "string",
+                      "text": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201218122615_94b8b27d-ffa7-4be2-b04e-f14aa1e85ba2): select count(*) as frequency, `entities`.hashtags.text\nfrom tweets_parquet lateral view explode(`entities`.hashtags.text) h as hashtag\ngroup by `entities`.hashtags\norder by frequency desc\nlimit 10\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:frequency, type:bigint, comment:null), FieldSchema(name:text, type:array<string>, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201218122615_94b8b27d-ffa7-4be2-b04e-f14aa1e85ba2); Time taken: 0.082 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201218122615_94b8b27d-ffa7-4be2-b04e-f14aa1e85ba2): select count(*) as frequency, `entities`.hashtags.text\nfrom tweets_parquet lateral view explode(`entities`.hashtags.text) h as hashtag\ngroup by `entities`.hashtags\norder by frequency desc\nlimit 10\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201218122615_94b8b27d-ffa7-4be2-b04e-f14aa1e85ba2\nINFO  : Total jobs = 2\nINFO  : Launching Job 1 out of 2\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0009\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0009/\nINFO  : Starting Job = job_1608287900563_0009, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0009/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0009\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 12:26:29,647 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 12:26:36,892 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.01 sec\nINFO  : 2020-12-18 12:26:42,048 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.68 sec\nINFO  : MapReduce Total cumulative CPU time: 4 seconds 680 msec\nINFO  : Ended Job = job_1608287900563_0009\nINFO  : Launching Job 2 out of 2\nINFO  : Starting task [Stage-2:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0010\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0010/\nINFO  : Starting Job = job_1608287900563_0010, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0010/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0010\nINFO  : Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 12:26:58,211 Stage-2 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 12:27:04,436 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.98 sec\nINFO  : 2020-12-18 12:27:10,601 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.55 sec\nINFO  : MapReduce Total cumulative CPU time: 3 seconds 550 msec\nINFO  : Ended Job = job_1608287900563_0010\nINFO  : MapReduce Jobs Launched: \nINFO  : Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 4.68 sec   HDFS Read: 406749 HDFS Write: 124232 SUCCESS\nINFO  : Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.55 sec   HDFS Read: 131993 HDFS Write: 645 SUCCESS\nINFO  : Total MapReduce CPU Time Spent: 8 seconds 230 msec\nINFO  : Completed executing command(queryId=osbdet_20201218122615_94b8b27d-ffa7-4be2-b04e-f14aa1e85ba2); Time taken: 55.948 seconds\nINFO  : OK\nINFO  : Concurrency mode is disabled, not creating a lock manager\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "frequency\ttext\n2311\t[\"COVID19\"]\n285\t[\"Covid19\"]\n266\t[\"coronavirus\"]\n114\t[\"Delhi\",\"Blood\",\"COVID19\"]\n102\t[\"covid19\"]\n92\t[\"Coronavirus\"]\n84\t[\"GranDespertarMX\",\"LopezGobiernoFallido\",\"coronavirus\",\"MexicoDespierta\",\"UnPeligroParaMéxico\",\"LopezMexicoTeRepudia\"]\n77\t[\"online\",\"facebook\",\"podcast\",\"instagood\",\"repost\",\"party\",\"videogames\",\"twitchstream\",\"newmusic\",\"coronavirus\",\"singer\"]\n75\t[\"iphone\",\"ios14\",\"apple\",\"coronavirus\",\"google\"]\n72\t[\"ebay\",\"noel\",\"anniversaire\",\"fete\",\"collection\",\"Amazon\",\"France\",\"Paris\",\"auteur\",\"lecture\",\"livre\",\"culture\"]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0009/",
+              "$$hashKey": "object:1645"
+            },
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0010/",
+              "$$hashKey": "object:1646"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607255854996_265004648",
+      "id": "paragraph_1607255854996_265004648",
+      "dateCreated": "2020-12-06T12:57:34+0100",
+      "dateStarted": "2020-12-18T12:26:15+0100",
+      "dateFinished": "2020-12-18T12:27:11+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:199"
+    },
+    {
+      "text": "-- #14. Average number of words in a tweet\nselect round(avg(size(split(text,''))),2) as average_number_of_words_in_a_tweet\nfrom tweets_parquet;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T11:49:26+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "average_number_of_words_in_a_tweet": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          },
+          "3": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "average_number_of_words_in_a_tweet": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201218114752_b58084ed-db81-4b64-94ba-e62d87d4ea74): select avg(size(split(text,''))) as average_number_of_words_in_a_tweet\nfrom tweets_parquet\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:average_number_of_words_in_a_tweet, type:double, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201218114752_b58084ed-db81-4b64-94ba-e62d87d4ea74); Time taken: 2.166 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201218114752_b58084ed-db81-4b64-94ba-e62d87d4ea74): select avg(size(split(text,''))) as average_number_of_words_in_a_tweet\nfrom tweets_parquet\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201218114752_b58084ed-db81-4b64-94ba-e62d87d4ea74\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0004\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0004/\nINFO  : Starting Job = job_1608287900563_0004, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0004/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0004\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 11:48:10,518 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 11:48:18,743 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.9 sec\nINFO  : 2020-12-18 11:48:24,953 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.81 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "average_number_of_words_in_a_tweet\n126.1663107542496\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201218114826_32e8027c-b610-43ec-9c8c-a759f74dc5fe): select round(avg(size(split(text,''))),2) as average_number_of_words_in_a_tweet\nfrom tweets_parquet\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:average_number_of_words_in_a_tweet, type:double, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201218114826_32e8027c-b610-43ec-9c8c-a759f74dc5fe); Time taken: 0.228 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201218114826_32e8027c-b610-43ec-9c8c-a759f74dc5fe): select round(avg(size(split(text,''))),2) as average_number_of_words_in_a_tweet\nfrom tweets_parquet\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201218114826_32e8027c-b610-43ec-9c8c-a759f74dc5fe\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0005\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0005/\nINFO  : Starting Job = job_1608287900563_0005, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0005/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0005\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 11:48:48,403 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 11:48:55,612 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.03 sec\nINFO  : 2020-12-18 11:49:01,802 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.92 sec\nINFO  : MapReduce Total cumulative CPU time: 5 seconds 920 msec\nINFO  : Ended Job = job_1608287900563_0005\nINFO  : MapReduce Jobs Launched: \nINFO  : Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.92 sec   HDFS Read: 1046563 HDFS Write: 106 SUCCESS\nINFO  : Total MapReduce CPU Time Spent: 5 seconds 920 msec\nINFO  : Completed executing command(queryId=osbdet_20201218114826_32e8027c-b610-43ec-9c8c-a759f74dc5fe); Time taken: 36.527 seconds\nINFO  : OK\nINFO  : Concurrency mode is disabled, not creating a lock manager\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "average_number_of_words_in_a_tweet\n126.17\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0004/",
+              "$$hashKey": "object:1696"
+            },
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0005/",
+              "$$hashKey": "object:1697"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607429305170_362634894",
+      "id": "paragraph_1607429305170_362634894",
+      "dateCreated": "2020-12-08T13:08:25+0100",
+      "dateStarted": "2020-12-18T11:47:52+0100",
+      "dateFinished": "2020-12-18T11:49:02+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:200"
+    },
+    {
+      "text": "-- #15. Average and Max number of hashtags in a tweet\nselect round(avg(size(`entities`.hashtags.text)),2) as average_hastags, max (size(`entities`.hashtags.text)) as max_hastags\nfrom tweets_parquet lateral view explode (`entities`.hashtags.text) h as hashtags:",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T11:53:37+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string",
+                      "_c1": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201218114628_3b08df7f-afec-40bb-aed7-e1be623d64dd): select round(avg(size(`entities`.hashtags.text)),2), max (size(`entities`.hashtags.text))\nfrom tweets_parquet lateral view explode (`entities`.hashtags.text) h as hashtags\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:_c0, type:double, comment:null), FieldSchema(name:_c1, type:int, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201218114628_3b08df7f-afec-40bb-aed7-e1be623d64dd); Time taken: 0.103 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201218114628_3b08df7f-afec-40bb-aed7-e1be623d64dd): select round(avg(size(`entities`.hashtags.text)),2), max (size(`entities`.hashtags.text))\nfrom tweets_parquet lateral view explode (`entities`.hashtags.text) h as hashtags\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201218114628_3b08df7f-afec-40bb-aed7-e1be623d64dd\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0003\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0003/\nINFO  : Starting Job = job_1608287900563_0003, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0003/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0003\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 11:46:51,612 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 11:46:58,838 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.65 sec\nINFO  : 2020-12-18 11:47:05,027 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.48 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "_c0\t_c1\n3.07\t15\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0003/",
+              "$$hashKey": "object:1747"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607430133881_1087779816",
+      "id": "paragraph_1607430133881_1087779816",
+      "dateCreated": "2020-12-08T13:22:13+0100",
+      "dateStarted": "2020-12-18T11:46:28+0100",
+      "dateFinished": "2020-12-18T11:47:06+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:201"
+    },
+    {
+      "text": "-- #16. Top 10 users with more mentions \nselect `user`.screen_name, count(`entities`.user_mentions) as number_of_mentions\nfrom tweets_parquet\ngroup by `user`.screen_name\norder by count(`entities`.user_mentions) desc\nlimit 10;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T12:25:59+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "screen_name": "string",
+                      "_c1": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201208134315_f255e31a-a0bd-4507-b2f5-da4680498239): select `user`.screen_name, count(`entities`.user_mentions)\nfrom tweets_parquet\ngroup by `user`.screen_name\norder by count(`entities`.user_mentions) desc\nlimit 10\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:user.screen_name, type:string, comment:null), FieldSchema(name:_c1, type:bigint, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201208134315_f255e31a-a0bd-4507-b2f5-da4680498239); Time taken: 0.083 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201208134315_f255e31a-a0bd-4507-b2f5-da4680498239): select `user`.screen_name, count(`entities`.user_mentions)\nfrom tweets_parquet\ngroup by `user`.screen_name\norder by count(`entities`.user_mentions) desc\nlimit 10\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201208134315_f255e31a-a0bd-4507-b2f5-da4680498239\nINFO  : Total jobs = 2\nINFO  : Launching Job 1 out of 2\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0028\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0028/\nINFO  : Starting Job = job_1607250954367_0028, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0028/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0028\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-08 13:43:27,583 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-08 13:43:31,891 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.75 sec\nINFO  : 2020-12-08 13:43:38,008 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.08 sec\nINFO  : MapReduce Total cumulative CPU time: 3 seconds 80 msec\nINFO  : Ended Job = job_1607250954367_0028\nINFO  : Launching Job 2 out of 2\nINFO  : Starting task [Stage-2:MAPRED] in serial mode\nINFO  : Number of reduce tasks determined at compile time: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1607250954367_0029\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1607250954367_0029/\nINFO  : Starting Job = job_1607250954367_0029, Tracking URL = http://localhost:8088/proxy/application_1607250954367_0029/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1607250954367_0029\nINFO  : Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-08 13:43:57,555 Stage-2 map = 0%,  reduce = 0%\nINFO  : 2020-12-08 13:44:01,867 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.02 sec\nINFO  : 2020-12-08 13:44:06,988 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 2.15 sec\nINFO  : MapReduce Total cumulative CPU time: 2 seconds 150 msec\nINFO  : Ended Job = job_1607250954367_0029\nINFO  : MapReduce Jobs Launched: \nINFO  : Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.08 sec   HDFS Read: 203816 HDFS Write: 300573 SUCCESS\nINFO  : Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 2.15 sec   HDFS Read: 308071 HDFS Write: 353 SUCCESS\nINFO  : Total MapReduce CPU Time Spent: 5 seconds 230 msec\nINFO  : Completed executing command(queryId=osbdet_20201208134315_f255e31a-a0bd-4507-b2f5-da4680498239); Time taken: 52.31 seconds\nINFO  : OK\nINFO  : Concurrency mode is disabled, not creating a lock manager\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "screen_name\t_c1\ncovidnewsCH\t57\nviralvideovlogs\t40\nBot_Corona_V\t31\nsanjay_2870\t28\nwein_van\t16\nmonipanni\t15\nkthsxl\t12\nSainaga55319456\t12\nFibHunter\t12\nblogcu3460\t12\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0028/",
+              "$$hashKey": "object:1793"
+            },
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1607250954367_0029/",
+              "$$hashKey": "object:1794"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607430471116_1946326084",
+      "id": "paragraph_1607430471116_1946326084",
+      "dateCreated": "2020-12-08T13:27:51+0100",
+      "dateStarted": "2020-12-08T13:43:15+0100",
+      "dateFinished": "2020-12-08T13:44:08+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:202"
+    },
+    {
+      "text": "-- #17. Create a managed table called tweets_words\ndrop table if exists tweets_words;\ncreate table tweets_words as select id, words from tweets_parquet lateral view explode(sentences(lower(text))) dummy as words;\ncreate table tweets_words_2 as select id, word from tweets_words lateral view explode(words) dummy as word;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-17T17:56:03+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1INFO  : Compiling command(queryId=osbdet_20201217175603_17e6f5fd-4501-4819-80b0-540df04392bb): create table tweets_words as select id, words from tweets_parquet lateral view explode(sentences(lower(text))) dummy as words\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:id, type:bigint, comment:null), FieldSchema(name:words, type:array<string>, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201217175603_17e6f5fd-4501-4819-80b0-540df04392bb); Time taken: 0.075 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201217175603_17e6f5fd-4501-4819-80b0-540df04392bb): create table tweets_words as select id, words from tweets_parquet lateral view explode(sentences(lower(text))) dummy as words\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201217175603_17e6f5fd-4501-4819-80b0-540df04392bb\nINFO  : Total jobs = 3\nINFO  : Launching Job 1 out of 3\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks is set to 0 since there's no reduce operator\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608220561199_0005\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608220561199_0005/\nINFO  : Starting Job = job_1608220561199_0005, Tracking URL = http://localhost:8088/proxy/application_1608220561199_0005/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608220561199_0005\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0\nINFO  : 2020-12-17 17:56:21,636 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-17 17:56:28,906 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.97 sec\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1INFO  : Compiling command(queryId=osbdet_20201217175630_458456e8-ba81-4a1e-be97-173dbba87d84): create table tweets_words_2 as select id, word from tweets_words lateral view explode(words) dummy as word\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:id, type:bigint, comment:null), FieldSchema(name:word, type:string, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201217175630_458456e8-ba81-4a1e-be97-173dbba87d84); Time taken: 0.08 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201217175630_458456e8-ba81-4a1e-be97-173dbba87d84): create table tweets_words_2 as select id, word from tweets_words lateral view explode(words) dummy as word\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201217175630_458456e8-ba81-4a1e-be97-173dbba87d84\nINFO  : Total jobs = 3\nINFO  : Launching Job 1 out of 3\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks is set to 0 since there's no reduce operator\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608220561199_0006\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608220561199_0006/\nINFO  : Starting Job = job_1608220561199_0006, Tracking URL = http://localhost:8088/proxy/application_1608220561199_0006/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608220561199_0006\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0\nINFO  : 2020-12-17 17:56:51,381 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-17 17:56:57,554 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.31 sec\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608220561199_0005/",
+              "$$hashKey": "object:1844"
+            },
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608220561199_0006/",
+              "$$hashKey": "object:1845"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607431020144_891160447",
+      "id": "paragraph_1607431020144_891160447",
+      "dateCreated": "2020-12-08T13:37:00+0100",
+      "dateStarted": "2020-12-17T17:56:03+0100",
+      "dateFinished": "2020-12-17T17:56:58+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:203"
+    },
+    {
+      "text": "-- #17.1. Test if it works\nselect *\nfrom tweets_words_2\nlimit 5;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T11:54:00+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "id": "string",
+                      "word": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "id\tword\n1331286441016647680\trt\n1331286441016647680\tkazweida\n1331286441016647680\tdon\n1331286441016647680\tt\n1331286441016647680\tlook\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607431915079_1355977736",
+      "id": "paragraph_1607431915079_1355977736",
+      "dateCreated": "2020-12-08T13:51:55+0100",
+      "dateStarted": "2020-12-17T17:57:14+0100",
+      "dateFinished": "2020-12-17T17:57:14+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:204"
+    },
+    {
+      "text": "-- #18. Create a managed table called tweets_words_sentiment\r\ncreate table tweets_word_sentiment as select\r\n    id,\r\n    tweets_words_2.word,\r\n    case d.polarity\r\n      when  'negative' then -1\r\n      when 'positive' then 1\r\n      else 0 end as polarity\r\n from tweets_words_2 left outer join sentiment_dictionary d on tweets_words_2.word = d.word;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-17T18:06:22+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201217180622_d3d32acb-685c-44ad-a5cc-416929e1f70c): create table tweets_word_sentiment as select\n    id,\n    tweets_words_2.word,\n    case d.polarity\n      when  'negative' then -1\n      when 'positive' then 1\n      else 0 end as polarity\n from tweets_words_2 left outer join sentiment_dictionary d on tweets_words_2.word = d.word\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:id, type:bigint, comment:null), FieldSchema(name:tweets_words_2.word, type:string, comment:null), FieldSchema(name:polarity, type:int, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201217180622_d3d32acb-685c-44ad-a5cc-416929e1f70c); Time taken: 0.318 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201217180622_d3d32acb-685c-44ad-a5cc-416929e1f70c): create table tweets_word_sentiment as select\n    id,\n    tweets_words_2.word,\n    case d.polarity\n      when  'negative' then -1\n      when 'positive' then 1\n      else 0 end as polarity\n from tweets_words_2 left outer join sentiment_dictionary d on tweets_words_2.word = d.word\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201217180622_d3d32acb-685c-44ad-a5cc-416929e1f70c\nINFO  : Total jobs = 1\nINFO  : Starting task [Stage-5:MAPREDLOCAL] in serial mode\nINFO  : Execution completed successfully\nINFO  : MapredLocal task succeeded\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-4:MAPRED] in serial mode\nINFO  : Number of reduce tasks is set to 0 since there's no reduce operator\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608220561199_0007\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608220561199_0007/\nINFO  : Starting Job = job_1608220561199_0007, Tracking URL = http://localhost:8088/proxy/application_1608220561199_0007/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608220561199_0007\nINFO  : Hadoop job information for Stage-4: number of mappers: 1; number of reducers: 0\nINFO  : 2020-12-17 18:06:43,414 Stage-4 map = 0%,  reduce = 0%\nINFO  : 2020-12-17 18:06:50,611 Stage-4 map = 100%,  reduce = 0%, Cumulative CPU 4.18 sec\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608220561199_0007/",
+              "$$hashKey": "object:1935"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1608223624533_1974013516",
+      "id": "paragraph_1608223624533_1974013516",
+      "dateCreated": "2020-12-17T17:47:04+0100",
+      "dateStarted": "2020-12-17T18:06:22+0100",
+      "dateFinished": "2020-12-17T18:06:52+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:205"
+    },
+    {
+      "text": "-- #19. Create a managed table called tweets_sentiment\r\ncreate table tweets_sentiment stored as parquet as select\r\n  id,\r\n  case\r\n    when sum( polarity ) > 0 then 'positive'\r\n    when sum( polarity ) < 0 then 'negative'\r\n    else 'neutral' end as sentiment\r\n from tweets_word_sentiment group by id;",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-17T18:09:32+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "INFO  : Compiling command(queryId=osbdet_20201217180932_2f0b6f30-8541-44f5-bc04-1c13e97b7d95): create table tweets_sentiment stored as parquet as select\n  id,\n  case\n    when sum( polarity ) > 0 then 'positive'\n    when sum( polarity ) < 0 then 'negative'\n    else 'neutral' end as sentiment\n from tweets_word_sentiment group by id\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:id, type:bigint, comment:null), FieldSchema(name:sentiment, type:string, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201217180932_2f0b6f30-8541-44f5-bc04-1c13e97b7d95); Time taken: 0.168 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201217180932_2f0b6f30-8541-44f5-bc04-1c13e97b7d95): create table tweets_sentiment stored as parquet as select\n  id,\n  case\n    when sum( polarity ) > 0 then 'positive'\n    when sum( polarity ) < 0 then 'negative'\n    else 'neutral' end as sentiment\n from tweets_word_sentiment group by id\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201217180932_2f0b6f30-8541-44f5-bc04-1c13e97b7d95\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608220561199_0008\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608220561199_0008/\nINFO  : Starting Job = job_1608220561199_0008, Tracking URL = http://localhost:8088/proxy/application_1608220561199_0008/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608220561199_0008\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-17 18:09:50,567 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-17 18:09:56,722 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.26 sec\nINFO  : 2020-12-17 18:10:03,961 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.93 sec\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608220561199_0008/",
+              "$$hashKey": "object:1981"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1607431951750_1134159238",
+      "id": "paragraph_1607431951750_1134159238",
+      "dateCreated": "2020-12-08T13:52:31+0100",
+      "dateStarted": "2020-12-17T18:09:32+0100",
+      "dateFinished": "2020-12-17T18:10:05+0100",
+      "status": "FINISHED",
+      "$$hashKey": "object:206"
+    },
+    {
+      "text": "-- #20. Hourly evolution of sentiment tweets with hashtag\ncreate temporary MACRO tweet_hour(created_at string)\nfrom_unixtime(unix_timestamp(created_at, 'EEE MMM dd HH:mm:ss ZZZZZ yyyy'),'yyyyMMddHH');\nselect tweet_hour(id)\nfrom tweets_sentiment\ngroup by tweet_hour(id);\nwhere `entities`.hashtags.text == 'COVID19'",
+      "user": "anonymous",
+      "dateUpdated": "2020-12-18T18:39:54+0100",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1INFO  : Compiling command(queryId=osbdet_20201218183954_35028533-72cb-4766-9d2a-9d3950a122a2): select tweet_hour(id)\nfrom tweets_sentiment\ngroup by tweet_hour(id)\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:_c0, type:string, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=osbdet_20201218183954_35028533-72cb-4766-9d2a-9d3950a122a2); Time taken: 0.153 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=osbdet_20201218183954_35028533-72cb-4766-9d2a-9d3950a122a2): select tweet_hour(id)\nfrom tweets_sentiment\ngroup by tweet_hour(id)\nWARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.\nINFO  : Query ID = osbdet_20201218183954_35028533-72cb-4766-9d2a-9d3950a122a2\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Number of reduce tasks not specified. Estimated from input data size: 1\nINFO  : In order to change the average load for a reducer (in bytes):\nINFO  :   set hive.exec.reducers.bytes.per.reducer=<number>\nINFO  : In order to limit the maximum number of reducers:\nINFO  :   set hive.exec.reducers.max=<number>\nINFO  : In order to set a constant number of reducers:\nINFO  :   set mapreduce.job.reduces=<number>\nINFO  : number of splits:1\nINFO  : Submitting tokens for job: job_1608287900563_0013\nINFO  : Executing with tokens: []\nINFO  : The url to track the job: http://localhost:8088/proxy/application_1608287900563_0013/\nINFO  : Starting Job = job_1608287900563_0013, Tracking URL = http://localhost:8088/proxy/application_1608287900563_0013/\nINFO  : Kill Command = /opt/hadoop/bin/mapred job  -kill job_1608287900563_0013\nINFO  : Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1\nINFO  : 2020-12-18 18:40:09,863 Stage-1 map = 0%,  reduce = 0%\nINFO  : 2020-12-18 18:40:15,999 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.32 sec\nINFO  : 2020-12-18 18:40:22,121 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.47 sec\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "_c0\nnull\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "org.apache.hive.service.cli.HiveSQLException: Error while compiling statement: FAILED: ParseException line 1:0 cannot recognize input near 'where' 'entities' '.'\n\tat org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:300)\n\tat org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:286)\n\tat org.apache.hive.jdbc.HiveStatement.runAsyncOnServer(HiveStatement.java:324)\n\tat org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:265)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:754)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.internalInterpret(JDBCInterpreter.java:881)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:47)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:776)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:668)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:130)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:39)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:834)\nCaused by: org.apache.hive.service.cli.HiveSQLException: Error while compiling statement: FAILED: ParseException line 1:0 cannot recognize input near 'where' 'entities' '.'\n\tat org.apache.hive.service.cli.operation.Operation.toSQLException(Operation.java:335)\n\tat org.apache.hive.service.cli.operation.SQLOperation.prepare(SQLOperation.java:199)\n\tat org.apache.hive.service.cli.operation.SQLOperation.runInternal(SQLOperation.java:260)\n\tat org.apache.hive.service.cli.operation.Operation.run(Operation.java:247)\n\tat org.apache.hive.service.cli.session.HiveSessionImpl.executeStatementInternal(HiveSessionImpl.java:541)\n\tat org.apache.hive.service.cli.session.HiveSessionImpl.executeStatementAsync(HiveSessionImpl.java:527)\n\tat sun.reflect.GeneratedMethodAccessor60.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.hive.service.cli.session.HiveSessionProxy.invoke(HiveSessionProxy.java:78)\n\tat org.apache.hive.service.cli.session.HiveSessionProxy.access$000(HiveSessionProxy.java:36)\n\tat org.apache.hive.service.cli.session.HiveSessionProxy$1.run(HiveSessionProxy.java:63)\n\tat java.security.AccessController.doPrivileged(Native Method)\n\tat javax.security.auth.Subject.doAs(Subject.java:422)\n\tat org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)\n\tat org.apache.hive.service.cli.session.HiveSessionProxy.invoke(HiveSessionProxy.java:59)\n\tat com.sun.proxy.$Proxy42.executeStatementAsync(Unknown Source)\n\tat org.apache.hive.service.cli.CLIService.executeStatementAsync(CLIService.java:312)\n\tat org.apache.hive.service.cli.thrift.ThriftCLIService.ExecuteStatement(ThriftCLIService.java:562)\n\tat org.apache.hive.service.rpc.thrift.TCLIService$Processor$ExecuteStatement.getResult(TCLIService.java:1557)\n\tat org.apache.hive.service.rpc.thrift.TCLIService$Processor$ExecuteStatement.getResult(TCLIService.java:1542)\n\tat org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)\n\tat org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)\n\tat org.apache.hive.service.auth.TSetIpAddressProcessor.process(TSetIpAddressProcessor.java:56)\n\tat org.apache.thrift.server.TThreadPoolServer$WorkerProcess.run(TThreadPoolServer.java:286)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.lang.RuntimeException: org.apache.hadoop.hive.ql.parse.ParseException:line 1:0 cannot recognize input near 'where' 'entities' '.'\n\tat org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:223)\n\tat org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)\n\tat org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)\n\tat org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)\n\tat org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)\n\tat org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)\n\tat org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)\n\tat org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)\n\tat org.apache.hive.service.cli.operation.SQLOperation.prepare(SQLOperation.java:197)\n\t... 26 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "HIVE JOB",
+          "tooltip": "View in YARN WEB UI",
+          "group": "jdbc",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8088/proxy/application_1608287900563_0013/",
+              "$$hashKey": "object:12412"
+            }
+          ],
+          "interpreterSettingId": "hive"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1608224972090_1604713463",
+      "id": "paragraph_1608224972090_1604713463",
+      "dateCreated": "2020-12-17T18:09:32+0100",
+      "dateStarted": "2020-12-18T18:39:54+0100",
+      "dateFinished": "2020-12-18T18:40:23+0100",
+      "status": "ERROR",
+      "$$hashKey": "object:207"
+    },
+    {
+      "user": "anonymous",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1608290985467_580491648",
+      "id": "paragraph_1608290985467_580491648",
+      "dateCreated": "2020-12-18T12:29:45+0100",
+      "status": "READY",
+      "$$hashKey": "object:208"
+    }
+  ],
+  "name": "Individual Assignment Alvaro Celiz",
+  "id": "2FSWYM81Z",
+  "defaultInterpreterGroup": "hive",
+  "version": "0.9.0-preview2",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/Individual Assignment Alvaro Celiz"
+}
