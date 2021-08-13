@@ -7,7 +7,7 @@ A corporation is looking for Real-time Control Centers leveraging what is going 
 What is the availability of bike docks in London?
 - Data extracted from TfL BikePoint API.
 - More than 750 docking stations and 8,500 bikes in circulation across London.
-- Provides the status of the BikePoint (e.g.broken, damaged…)
+- Provides the status of the BikePoint (e.g. broken, damaged…).
 
 ## Results
 
