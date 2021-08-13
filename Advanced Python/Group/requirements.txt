@@ -1,0 +1,4 @@
+file:library  # Installs library code
+
+# Extra dependencies for the web application
+flask~=1.1.2
