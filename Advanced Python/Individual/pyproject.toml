@@ -1,0 +1,24 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "ie_bike_model"
+author = "Alvaro Celiz Llorente"
+author-email = "alvaroceliz@student.ie.edu"
+home-page = "https://www.github.com/alvaroceliz"
+classifiers = [ "License :: OSI Approved :: MIT License",]
+description-file = "README.md"
+
+requires = [
+            "pandas",
+            "scikit-learn",
+            "joblib",
+           ]
+
+[tool.flit.metadata.requires-extra]
+dev = [
+    "black",
+    "pytest",
+    "jupyter"
+]
