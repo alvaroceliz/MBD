@@ -1,0 +1,18 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "ie_utils"
+author = "Juan Luis Cano Rodríguez"
+author-email = "jcano@faculty.ie.edu"
+description-file = "README.md"
+requires = [
+    "pandas",
+    # "flask",  # Instead, use requirements.txt
+]
+
+[tool.flit.metadata.requires-extra]
+dev = [
+    "black"
+]
